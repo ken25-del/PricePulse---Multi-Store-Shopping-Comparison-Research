@@ -78,7 +78,7 @@ export const DEFAULT_SHOPPING_SOURCES: ShoppingSource[] = [
     description: 'Leading marketplace with millions of verified customer reviews & fast delivery.',
     status: 'supported',
     enabled: true,
-    categorySpecialty: ['Electronics', 'Saree', 'Fashion', 'Home', 'Appliances']
+    categorySpecialty: ['Electronics', 'Mobiles', 'Fashion', 'Footwear', 'Home & Kitchen', 'Laptops']
   },
   {
     id: 'flipkart',
@@ -86,10 +86,10 @@ export const DEFAULT_SHOPPING_SOURCES: ShoppingSource[] = [
     domain: 'flipkart.com',
     logo: 'https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/flipkart-plus_8d85f4.png',
     color: '#2874F0',
-    description: 'Major Indian ecommerce platform with extensive regional and festive ethnic wear.',
+    description: 'Major Indian ecommerce platform with extensive gadgets, fashion, and appliances.',
     status: 'supported',
     enabled: true,
-    categorySpecialty: ['Saree', 'Fashion', 'Mobiles', 'Electronics', 'Footwear']
+    categorySpecialty: ['Mobiles', 'Electronics', 'Footwear', 'Appliances', 'Fashion', 'Sarees']
   },
   {
     id: 'myntra',
@@ -97,10 +97,10 @@ export const DEFAULT_SHOPPING_SOURCES: ShoppingSource[] = [
     domain: 'myntra.com',
     logo: 'https://assets.myntassets.com/assets/images/retaillabs/2023/2/28/a9e7d953-b9be-4e00-84cf-2339d9361ad61677567223395-Myntra-Logo.png',
     color: '#FF3F6C',
-    description: 'Premium curated fashion, designer ethnic wear, silks, and top apparel brands.',
+    description: 'Premium curated fashion, footwear, casuals, kurtas, watches, and top apparel brands.',
     status: 'supported',
     enabled: true,
-    categorySpecialty: ['Saree', 'Ethnic Wear', 'Designer Brands', 'Western Wear', 'Footwear']
+    categorySpecialty: ['Footwear', 'Sneakers', 'Ethnic Wear', 'Western Fashion', 'Watches', 'Kurtas']
   },
   {
     id: 'meesho',
@@ -108,10 +108,10 @@ export const DEFAULT_SHOPPING_SOURCES: ShoppingSource[] = [
     domain: 'meesho.com',
     logo: 'https://images.meesho.com/images/marketing/1661417516766.png',
     color: '#F43397',
-    description: 'Direct-from-manufacturer marketplace offering budget-friendly sarees and apparel.',
+    description: 'Direct-from-manufacturer marketplace offering budget-friendly fashion, accessories, and home items.',
     status: 'supported',
     enabled: true,
-    categorySpecialty: ['Budget Sarees', 'Kurtas', 'Jewelry', 'Daily Wear']
+    categorySpecialty: ['Budget Fashion', 'Kurtas', 'Accessories', 'Daily Wear', 'Sarees', 'Footwear']
   },
   {
     id: 'ajio',
@@ -119,10 +119,10 @@ export const DEFAULT_SHOPPING_SOURCES: ShoppingSource[] = [
     domain: 'ajio.com',
     logo: 'https://assets.ajio.com/static/img/Ajio-Logo.svg',
     color: '#2C4152',
-    description: 'Reliance digital fashion destination with handcrafted handloom and indie collections.',
+    description: 'Reliance digital fashion destination with international brands, indie apparel, and sneakers.',
     status: 'supported',
     enabled: true,
-    categorySpecialty: ['Handloom', 'Silk', 'Indie', 'Trendy Fashion']
+    categorySpecialty: ['Sneakers', 'Streetwear', 'Indie', 'Trendy Fashion', 'Footwear']
   },
   {
     id: 'nykaa',
@@ -130,10 +130,10 @@ export const DEFAULT_SHOPPING_SOURCES: ShoppingSource[] = [
     domain: 'nykaafashion.com',
     logo: 'https://adn-static1.nykaa.com/media/wysiwyg/HeaderIcons/NykaaFashionLogo.svg',
     color: '#FC2779',
-    description: 'Curated luxury and premium occasion wear, festive silk sarees, and beauty.',
+    description: 'Curated luxury fashion, beauty, cosmetics, festive occasion wear, and accessories.',
     status: 'supported',
     enabled: true,
-    categorySpecialty: ['Occasion Wear', 'Luxury Sarees', 'Jewelry', 'Festive']
+    categorySpecialty: ['Beauty', 'Occasion Wear', 'Footwear', 'Jewelry', 'Festive']
   },
   {
     id: 'tatacliq',
@@ -141,10 +141,10 @@ export const DEFAULT_SHOPPING_SOURCES: ShoppingSource[] = [
     domain: 'tatacliq.com',
     logo: 'https://www.tatacliq.com/src/general/components/img/group.svg',
     color: '#212121',
-    description: 'Tata Group ecommerce with authentic brand assurance and certified ethnic wear.',
+    description: 'Tata Group ecommerce with authentic brand assurance for electronics, luxury, and apparel.',
     status: 'supported',
     enabled: true,
-    categorySpecialty: ['Authentic Brands', 'Silk Sarees', 'Electronics', 'Watches']
+    categorySpecialty: ['Electronics', 'Laptops', 'Audio', 'Watches', 'Authentic Brands']
   }
 ];
 
@@ -155,7 +155,7 @@ export const SPECIALTY_STORES: ShoppingSource[] = [
     domain: 'nalli.com',
     logo: 'https://www.nalli.com/images/nalli-logo.svg',
     color: '#8B0000',
-    description: 'Heritage silk saree manufacturer founded in 1928, famous for authentic Kanjivaram & pure silks.',
+    description: 'Heritage silk manufacturer founded in 1928, famous for authentic Kanjivaram & pure silks.',
     status: 'supported',
     enabled: false,
     categorySpecialty: ['Pure Silk', 'Kanjivaram', 'Bridal', 'Banarasi']
@@ -166,10 +166,10 @@ export const SPECIALTY_STORES: ShoppingSource[] = [
     domain: 'karagiri.com',
     logo: 'https://www.karagiri.com/cdn/shop/files/Karagiri_Logo.png',
     color: '#B3541E',
-    description: 'Specialist ethnic wear portal with 10,000+ handcrafted sarees, Paithani & Banarasi.',
+    description: 'Specialist ethnic wear portal with handcrafted sarees, Paithani & festive wear.',
     status: 'supported',
     enabled: false,
-    categorySpecialty: ['Paithani', 'Banarasi', 'Organza', 'Silk Sarees']
+    categorySpecialty: ['Paithani', 'Banarasi', 'Organza', 'Ethnic Wear']
   },
   {
     id: 'craftsvilla',
@@ -177,10 +177,10 @@ export const SPECIALTY_STORES: ShoppingSource[] = [
     domain: 'craftsvilla.com',
     logo: 'https://www.craftsvilla.com/images/logo.png',
     color: '#D81B60',
-    description: 'Indian ethnic marketplace connecting artisans and local weavers.',
+    description: 'Indian ethnic marketplace connecting artisans, traditional garments, and crafts.',
     status: 'supported',
     enabled: false,
-    categorySpecialty: ['Ethnic Wear', 'Traditional Saree', 'Lehenga', 'Jewelry']
+    categorySpecialty: ['Ethnic Wear', 'Lehenga', 'Kurtis', 'Jewelry']
   },
   {
     id: 'fabindia',
@@ -188,15 +188,27 @@ export const SPECIALTY_STORES: ShoppingSource[] = [
     domain: 'fabindia.com',
     logo: 'https://www.fabindia.com/assets/images/logo.svg',
     color: '#7E191B',
-    description: 'Handcrafted natural fiber textiles, Tussar silk, Chanderi, and artisan apparel.',
+    description: 'Handcrafted natural fiber textiles, organic home linen, and artisan apparel.',
     status: 'supported',
     enabled: false,
-    categorySpecialty: ['Handcrafted', 'Tussar Silk', 'Chanderi', 'Cotton']
+    categorySpecialty: ['Handcrafted Kurtas', 'Cotton Shirts', 'Home Decor', 'Linen']
   }
 ];
 
 // Comprehensive category product photo library & dynamic query synthesizer
 const VERIFIED_CATEGORY_PHOTO_POOLS: Record<string, { images: string[]; basePrice: number; baseMrp: number; category: string; material: string }> = {
+  ssd: {
+    images: [
+      'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1531492746076-161ca9bcad58?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1618424181497-157f25b6ddd5?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1563770660941-20978e870e26?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 6999,
+    baseMrp: 12999,
+    category: 'Storage & SSDs',
+    material: 'Shock-Resistant Silicone & High-Speed NVMe'
+  },
   sneakers: {
     images: [
       'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80',
@@ -208,7 +220,7 @@ const VERIFIED_CATEGORY_PHOTO_POOLS: Record<string, { images: string[]; basePric
     basePrice: 2499,
     baseMrp: 4999,
     category: 'Footwear',
-    material: 'Leather & Suede'
+    material: 'Leather & Rubber Sole'
   },
   running_shoes: {
     images: [
@@ -221,17 +233,90 @@ const VERIFIED_CATEGORY_PHOTO_POOLS: Record<string, { images: string[]; basePric
     category: 'Footwear',
     material: 'Engineered Breathable Mesh'
   },
-  saree: {
+  smartphone: {
     images: [
-      'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=800&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1609357605129-26f69add5d6e?w=800&auto=format&fit=crop&q=80'
+      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800&auto=format&fit=crop&q=80'
     ],
-    basePrice: 2899,
-    baseMrp: 6499,
-    category: 'Saree',
-    material: 'Pure Woven Silk'
+    basePrice: 18999,
+    baseMrp: 24999,
+    category: 'Mobiles',
+    material: 'Gorilla Glass & Aluminum'
+  },
+  earbuds: {
+    images: [
+      'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 1999,
+    baseMrp: 4499,
+    category: 'Electronics',
+    material: 'Polycarbonate & Silicone'
+  },
+  headphones: {
+    images: [
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 3499,
+    baseMrp: 7999,
+    category: 'Audio',
+    material: 'Memory Foam & Matte Polymer'
+  },
+  smartwatch: {
+    images: [
+      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 2499,
+    baseMrp: 5999,
+    category: 'Wearables',
+    material: 'Metallic Alloy & Silicone Band'
+  },
+  laptop: {
+    images: [
+      'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 44990,
+    baseMrp: 58990,
+    category: 'Computers',
+    material: 'Anodized Aluminum & Magnesium'
+  },
+  tablet: {
+    images: [
+      'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 28999,
+    baseMrp: 35999,
+    category: 'Tablets',
+    material: 'Retina Display & Unibody Aluminum'
+  },
+  peripherals: {
+    images: [
+      'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 1999,
+    baseMrp: 3999,
+    category: 'Computer Peripherals',
+    material: 'Mechanical Switches & Matte ABS'
+  },
+  kitchen: {
+    images: [
+      'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1588854337236-6889d631faa8?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 2499,
+    baseMrp: 4999,
+    category: 'Home & Kitchen',
+    material: 'Stainless Steel & Non-Stick Coating'
   },
   kurta: {
     images: [
@@ -251,8 +336,8 @@ const VERIFIED_CATEGORY_PHOTO_POOLS: Record<string, { images: string[]; basePric
     ],
     basePrice: 999,
     baseMrp: 2299,
-    category: 'Apparel',
-    material: 'Premium Cotton'
+    category: 'Fashion',
+    material: 'Premium Breathable Cotton'
   },
   jeans: {
     images: [
@@ -261,113 +346,125 @@ const VERIFIED_CATEGORY_PHOTO_POOLS: Record<string, { images: string[]; basePric
     ],
     basePrice: 1699,
     baseMrp: 3599,
-    category: 'Apparel',
+    category: 'Fashion',
     material: 'Stretch Denim'
   },
-  earbuds: {
+  saree: {
     images: [
-      'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=800&auto=format&fit=crop&q=80'
+      'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1609357605129-26f69add5d6e?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 2899,
+    baseMrp: 6499,
+    category: 'Ethnic Wear',
+    material: 'Pure Woven Silk'
+  },
+  general_tech: {
+    images: [
+      'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80'
     ],
     basePrice: 1999,
-    baseMrp: 4499,
-    category: 'Electronics',
-    material: 'Polycarbonate'
-  },
-  headphones: {
-    images: [
-      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=800&auto=format&fit=crop&q=80'
-    ],
-    basePrice: 3499,
-    baseMrp: 7999,
-    category: 'Electronics',
-    material: 'Matte Polymer'
-  },
-  smartwatch: {
-    images: [
-      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=800&auto=format&fit=crop&q=80'
-    ],
-    basePrice: 2499,
-    baseMrp: 5999,
-    category: 'Electronics',
-    material: 'Metallic Alloy & Silicone'
-  },
-  smartphone: {
-    images: [
-      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800&auto=format&fit=crop&q=80'
-    ],
-    basePrice: 16999,
-    baseMrp: 21999,
-    category: 'Mobiles',
-    material: 'Gorilla Glass & Aluminum'
-  },
-  laptop: {
-    images: [
-      'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&auto=format&fit=crop&q=80'
-    ],
-    basePrice: 42990,
-    baseMrp: 54990,
-    category: 'Computers',
-    material: 'Anodized Aluminum'
-  },
-  kitchen: {
-    images: [
-      'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=800&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&auto=format&fit=crop&q=80'
-    ],
-    basePrice: 2299,
-    baseMrp: 4499,
-    category: 'Home & Kitchen',
-    material: 'Stainless Steel & Non-Stick'
+    baseMrp: 3999,
+    category: 'Consumer Electronics',
+    material: 'Premium Build & Verified Hardware'
   }
 };
 
 export function getResolvedCategoryPool(query: string, category?: string) {
   const q = `${query} ${category || ''}`.toLowerCase();
 
-  if (q.includes('puma') || q.includes('nike') || q.includes('adidas') || q.includes('sneaker') || q.includes('canvas')) {
-    return VERIFIED_CATEGORY_PHOTO_POOLS.sneakers;
+  // SSDs, Hard Drives, Pen Drives & Storage Media
+  if (
+    q.includes('ssd') ||
+    q.includes('sandisk') ||
+    q.includes('hard disk') ||
+    q.includes('hard drive') ||
+    q.includes('hdd') ||
+    q.includes('nvme') ||
+    q.includes('m.2') ||
+    q.includes('pendrive') ||
+    q.includes('pen drive') ||
+    q.includes('flash drive') ||
+    q.includes('usb drive') ||
+    q.includes('sd card') ||
+    q.includes('memory card') ||
+    q.includes('crucial') ||
+    q.includes('kingston') ||
+    q.includes('seagate') ||
+    q.includes('western digital') ||
+    q.includes('wd elements') ||
+    q.includes('wd ') ||
+    q.includes('storage')
+  ) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.ssd;
   }
-  if (q.includes('shoe') || q.includes('running') || q.includes('trainer') || q.includes('boot') || q.includes('footwear')) {
-    return VERIFIED_CATEGORY_PHOTO_POOLS.running_shoes;
-  }
-  if (q.includes('saree') || q.includes('sari') || q.includes('kanjivaram') || q.includes('banarasi') || q.includes('paithani') || q.includes('organza')) {
-    return VERIFIED_CATEGORY_PHOTO_POOLS.saree;
-  }
-  if (q.includes('kurta') || q.includes('kurti') || q.includes('ethnic') || q.includes('lehenga')) {
-    return VERIFIED_CATEGORY_PHOTO_POOLS.kurta;
-  }
-  if (q.includes('shirt') || q.includes('t-shirt') || q.includes('tshirt') || q.includes('polo')) {
-    return VERIFIED_CATEGORY_PHOTO_POOLS.shirt;
-  }
-  if (q.includes('jean') || q.includes('denim') || q.includes('trouser') || q.includes('pant')) {
-    return VERIFIED_CATEGORY_PHOTO_POOLS.jeans;
-  }
-  if (q.includes('earbud') || q.includes('airpod') || q.includes('tws') || q.includes('airdopes')) {
-    return VERIFIED_CATEGORY_PHOTO_POOLS.earbuds;
-  }
-  if (q.includes('headphone') || q.includes('headset') || q.includes('sony wh') || q.includes('audio')) {
-    return VERIFIED_CATEGORY_PHOTO_POOLS.headphones;
-  }
-  if (q.includes('watch') || q.includes('smartwatch') || q.includes('band')) {
-    return VERIFIED_CATEGORY_PHOTO_POOLS.smartwatch;
-  }
-  if (q.includes('phone') || q.includes('mobile') || q.includes('iphone') || q.includes('samsung') || q.includes('galaxy') || q.includes('redmi') || q.includes('pixel') || q.includes('oneplus')) {
+
+  // Mobiles & Smartphones
+  if (q.includes('phone') || q.includes('mobile') || q.includes('iphone') || q.includes('samsung') || q.includes('galaxy') || q.includes('redmi') || q.includes('pixel') || q.includes('oneplus') || q.includes('realme') || q.includes('vivo') || q.includes('oppo') || q.includes('motorola')) {
     return VERIFIED_CATEGORY_PHOTO_POOLS.smartphone;
   }
-  if (q.includes('laptop') || q.includes('macbook') || q.includes('computer') || q.includes('notebook')) {
+
+  // Tablets & iPad
+  if (q.includes('tablet') || q.includes('ipad') || q.includes('tab') || q.includes('galaxy tab')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.tablet;
+  }
+
+  // Audio, Earbuds & Headphones
+  if (q.includes('earbud') || q.includes('airpod') || q.includes('tws') || q.includes('airdopes') || q.includes('neckband') || q.includes('boat')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.earbuds;
+  }
+  if (q.includes('headphone') || q.includes('headset') || q.includes('sony wh') || q.includes('audio') || q.includes('speaker') || q.includes('soundbar') || q.includes('jbl')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.headphones;
+  }
+
+  // Laptops & Computers
+  if (q.includes('laptop') || q.includes('macbook') || q.includes('computer') || q.includes('notebook') || q.includes('dell') || q.includes('hp') || q.includes('lenovo') || q.includes('asus')) {
     return VERIFIED_CATEGORY_PHOTO_POOLS.laptop;
   }
-  if (q.includes('fryer') || q.includes('cooker') || q.includes('kettle') || q.includes('bottle') || q.includes('pan') || q.includes('kitchen') || q.includes('mixer')) {
+
+  // Keyboards, Mice, Monitors
+  if (q.includes('keyboard') || q.includes('mouse') || q.includes('monitor') || q.includes('display') || q.includes('gaming')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.peripherals;
+  }
+
+  // Smartwatches & Wearables
+  if (q.includes('watch') || q.includes('smartwatch') || q.includes('band') || q.includes('fitbit') || q.includes('garmin') || q.includes('noise')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.smartwatch;
+  }
+
+  // Footwear & Sneakers
+  if (q.includes('puma') || q.includes('nike') || q.includes('adidas') || q.includes('sneaker') || q.includes('canvas') || q.includes('jordan') || q.includes('converse')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.sneakers;
+  }
+  if (q.includes('shoe') || q.includes('running') || q.includes('trainer') || q.includes('boot') || q.includes('footwear') || q.includes('sandal') || q.includes('loafer') || q.includes('bata') || q.includes('woodland')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.running_shoes;
+  }
+
+  // Home & Kitchen Appliances
+  if (q.includes('fryer') || q.includes('cooker') || q.includes('kettle') || q.includes('bottle') || q.includes('pan') || q.includes('kitchen') || q.includes('mixer') || q.includes('grinder') || q.includes('oven') || q.includes('blender') || q.includes('prestige') || q.includes('milton') || q.includes('philips')) {
     return VERIFIED_CATEGORY_PHOTO_POOLS.kitchen;
   }
 
-  return VERIFIED_CATEGORY_PHOTO_POOLS.saree;
+  // Apparel & Fashion
+  if (q.includes('kurta') || q.includes('kurti') || q.includes('lehenga') || q.includes('ethnic') || q.includes('anarkali') || q.includes('dupatta')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.kurta;
+  }
+  if (q.includes('saree') || q.includes('sari') || q.includes('kanjivaram') || q.includes('banarasi') || q.includes('paithani') || q.includes('organza') || q.includes('silk saree')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.saree;
+  }
+  if (q.includes('shirt') || q.includes('t-shirt') || q.includes('tshirt') || q.includes('polo') || q.includes('top') || q.includes('hoodie') || q.includes('jacket')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.shirt;
+  }
+  if (q.includes('jean') || q.includes('denim') || q.includes('trouser') || q.includes('pant') || q.includes('shorts')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.jeans;
+  }
+
+  // Universal Default (Balanced Tech / Lifestyle instead of forcing Sarees)
+  return VERIFIED_CATEGORY_PHOTO_POOLS.general_tech;
 }
 
 // Fallback multi-store catalog generator when API quota is limited (429) or offline
@@ -385,8 +482,8 @@ function generateCatalogFallbackProducts(
   const pool = getResolvedCategoryPool(q, intent.category);
 
   // Extract brand from query if mentioned
-  const knownBrands = ['Puma', 'Nike', 'Adidas', 'Reebok', 'Skechers', 'Bata', 'Woodland', 'Apple', 'Samsung', 'OnePlus', 'Sony', 'boAt', 'Noise', 'Fire-Boltt', 'Levi\'s', 'Allen Solly', 'Peter England', 'Fabindia', 'Kanjivaram Heritage', 'Varkha Silks', 'Siril', 'Prestige', 'Hawkins', 'Milton', 'Philips'];
-  const matchedBrand = knownBrands.find(b => qLower.includes(b.toLowerCase())) || intent.brand || (pool.category === 'Footwear' ? 'Puma' : pool.category === 'Saree' ? 'Kanjivaram Heritage' : 'Authentic Brand');
+  const knownBrands = ['SanDisk', 'Samsung', 'Crucial', 'Western Digital', 'WD', 'Seagate', 'Kingston', 'Puma', 'Nike', 'Adidas', 'Reebok', 'Skechers', 'Bata', 'Woodland', 'Apple', 'OnePlus', 'Sony', 'boAt', 'Noise', 'Fire-Boltt', 'Levi\'s', 'Allen Solly', 'Peter England', 'Fabindia', 'Kanjivaram Heritage', 'Varkha Silks', 'Siril', 'Prestige', 'Hawkins', 'Milton', 'Philips'];
+  const matchedBrand = knownBrands.find(b => qLower.includes(b.toLowerCase())) || intent.brand || (pool.category === 'Footwear' ? 'Puma' : pool.category === 'Storage & SSDs' ? 'SanDisk' : pool.category === 'Saree' ? 'Kanjivaram Heritage' : 'Authentic Brand');
 
   // Generate 3 to 4 distinct variations of the queried product
   const baseTitle = q.length > 3 ? q : `${matchedBrand} ${pool.category}`;

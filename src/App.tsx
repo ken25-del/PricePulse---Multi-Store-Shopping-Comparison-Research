@@ -524,13 +524,6 @@ export default function App() {
   const filteredSimilarGroups = useMemo(() => applyFiltersAndSort(similarGroups), [similarGroups, filters]);
   const allCurrentGroups = useMemo(() => [...exactGroups, ...similarGroups], [exactGroups, similarGroups]);
 
-  // Initial prompt search run on startup if query provided
-  useEffect(() => {
-    if (!hasSearched) {
-      handlePerformSearch('Teej ke liye ₹2000 ke andar silk saree');
-    }
-  }, []);
-
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-[#0d0d0d] text-zinc-900 dark:text-[#f4f4f4] flex flex-col font-sans transition-colors">
       
@@ -627,7 +620,7 @@ export default function App() {
           </div>
         )}
 
-        {/* Hero Search Section */}
+        {/* Hero Search Section (Transforms to compact top search bar after searching) */}
         <HeroSearch
           settings={settings}
           allSources={allSources}
@@ -642,6 +635,7 @@ export default function App() {
           recentSearches={recentSearches}
           onSelectRecentSearch={handlePerformSearch}
           initialQuery={currentQuery}
+          isCompact={hasSearched}
         />
 
         {/* Live Search Status Panel */}

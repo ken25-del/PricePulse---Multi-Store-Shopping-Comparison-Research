@@ -53,17 +53,23 @@ export function parseSearchIntent(query: string): SearchIntent {
 
   // Category detection
   const categories = [
+    { name: 'Storage & SSD', regex: /\b(ssd|solid state drive|hard disk|hard drive|hdd|nvme|pendrive|pen drive|flash drive|usb drive|sd card|memory card|sandisk|crucial|seagate|western digital|wd elements)\b/i },
+    { name: 'Smartphone', regex: /\b(phone|smartphone|mobile|iphone|oneplus|samsung|redmi|realme|pixel|फ़ोन|मोबाइल)\b/i },
+    { name: 'Headphones', regex: /\b(headphones|earphones|earbuds|tws|headset|airdopes|airpods|neckband|हेडफ़ोन)\b/i },
+    { name: 'Laptop', regex: /\b(laptop|macbook|notebook|computer|लैपटॉप)\b/i },
+    { name: 'Tablet', regex: /\b(tablet|ipad|tab|galaxy tab)\b/i },
+    { name: 'Watch', regex: /\b(watch|smartwatch|smart watch|फिटनेस बैंड|घड़ी)\b/i },
+    { name: 'Shoes', regex: /\b(shoes|sneakers|footwear|sandals|boots|running shoes|जूते|स्नीकर्स)\b/i },
+    { name: 'Kitchen & Appliances', regex: /\b(air fryer|fryer|cooker|kettle|mixer|grinder|blender|oven|cookware|kitchen|kitchenware|कढ़ाई|मिक्सर)\b/i },
+    { name: 'Shirt', regex: /\b(shirt|t-shirt|tshirt|polo|शर्ट|टी-शर्ट)\b/i },
+    { name: 'Jeans & Trousers', regex: /\b(jeans|denim|trouser|trousers|pants|जींस|पैंट)\b/i },
+    { name: 'Kurta', regex: /\b(kurta|kurti|anarkali|कुर्ता|कुर्ती)\b/i },
     { name: 'Saree', regex: /\b(saree|sari|साड़ी)\b/i },
-    { name: 'Kurta', regex: /\b(kurta|kurti|कुर्ता|कुर्ती)\b/i },
     { name: 'Lehenga', regex: /\b(lehenga|घाघरा|लहंगा)\b/i },
     { name: 'Dress', regex: /\b(dress|gown|frock|ड्रेस)\b/i },
-    { name: 'Shoes', regex: /\b(shoes|sneakers|footwear|sandals|boots|जूते)\b/i },
-    { name: 'Watch', regex: /\b(watch|smartwatch|घड़ी)\b/i },
-    { name: 'Headphones', regex: /\b(headphones|earphones|earbuds|tws|headset)\b/i },
-    { name: 'Laptop', regex: /\b(laptop|macbook|notebook)\b/i },
-    { name: 'Smartphone', regex: /\b(phone|smartphone|mobile)\b/i },
-    { name: 'Handbag', regex: /\b(handbag|bag|purse|tote|backpack)\b/i },
-    { name: 'Jewelry', regex: /\b(jewelry|jewellery|necklace|earrings|bangles|jhumka)\b/i },
+    { name: 'Handbag & Luggage', regex: /\b(handbag|bag|purse|tote|backpack|suitcase|luggage|बैग)\b/i },
+    { name: 'Beauty & Grooming', regex: /\b(perfume|deodorant|lipstick|skincare|serum|hair dryer|shaver|trimer)\b/i },
+    { name: 'Jewelry', regex: /\b(jewelry|jewellery|necklace|earrings|bangles|jhumka|गहने)\b/i },
   ];
   for (const cat of categories) {
     if (cat.regex.test(query)) {

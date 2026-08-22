@@ -51,8 +51,8 @@ export function generateNonAiReviewSummary(group: ProductGroup): AIReviewSummary
     whatBuyersLike: whatBuyersLike.slice(0, 5),
     commonConcerns: commonConcerns.slice(0, 4),
     recurringComplaints: recurringComplaints.slice(0, 3),
-    suitabilityForPurpose: `Well-suited for ${group.occasion || 'everyday and festive'} use within its ₹${group.minPrice.toLocaleString('en-IN')} price bracket.`,
-    fabricQualityNotes: group.material ? `${group.material} blend with traditional woven finish.` : 'Standard verified fabric composition.',
+    suitabilityForPurpose: `Well-suited for ${group.occasion || 'regular and specialized'} use within its ₹${group.minPrice.toLocaleString('en-IN')} price bracket.`,
+    fabricQualityNotes: group.material ? `Engineered with verified ${group.material}.` : 'Verified manufacturer build and material quality.',
     valueVerdict: `Available across ${group.listings.length} stores with best price of ₹${group.minPrice.toLocaleString('en-IN')} on ${group.lowestPriceStore}.`,
     evidenceBased: true
   };

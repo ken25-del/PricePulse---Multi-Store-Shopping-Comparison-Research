@@ -5,7 +5,7 @@ function tokenize(text: string): Set<string> {
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, ' ')
     .split(/\s+/)
-    .filter(t => t.length > 2 && !['with', 'and', 'for', 'the', 'saree', 'sari', 'piece', 'blouse', 'women', 'mens', 'free', 'size'].includes(t));
+    .filter(t => t.length > 2 && !['with', 'and', 'for', 'the', 'piece', 'free', 'size', 'combo', 'edition', 'pack', 'set', 'official', 'genuine', 'original'].includes(t));
   return new Set(clean);
 }
 

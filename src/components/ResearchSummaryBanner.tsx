@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ResearchSummaryData, ProductGroup } from '../types';
-import { ShieldCheck, TrendingDown, Award, ShoppingBag, CheckCircle2, ChevronRight } from 'lucide-react';
+import { ShieldCheck, TrendingDown, Award, ShoppingBag, CheckCircle2, ChevronRight, X, Sparkles } from 'lucide-react';
 
 interface ResearchSummaryBannerProps {
   summary?: ResearchSummaryData | null;
@@ -15,12 +15,24 @@ export const ResearchSummaryBanner: React.FC<ResearchSummaryBannerProps> = ({
   onOpenDecisionGuide,
   onSelectProduct
 }) => {
-  if (!summary || summary.totalGroups === 0) return null;
+  const [isDismissed, setIsDismissed] = useState(false);
+
+  if (!summary || summary.totalGroups === 0 || isDismissed) return null;
 
   const bestOverall = productGroups.find(p => p.winnerCategory === 'best_overall') || productGroups[0];
 
   return (
-    <div className="bg-white dark:bg-[#121212] border border-zinc-200 dark:border-[#262626] rounded-xl p-4 sm:p-5 mb-6 shadow-sm dark:shadow-xl relative overflow-hidden transition-colors">
+    <div className="bg-white dark:bg-[#121212] border border-zinc-200 dark:border-[#262626] rounded-xl p-3.5 sm:p-4 mb-4 shadow-sm dark:shadow-xl relative overflow-hidden transition-colors">
+      {/* Dismiss Button */}
+      <button
+        type="button"
+        onClick={() => setIsDismissed(true)}
+        className="absolute top-3 right-3 p-1 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 bg-zinc-100 dark:bg-[#1c1c1c] hover:bg-zinc-200 dark:hover:bg-[#282828] border border-zinc-200 dark:border-[#333333] transition-colors cursor-pointer z-20"
+        title="Hide AI Insights Banner"
+      >
+        <X className="w-3.5 h-3.5" />
+      </button>
+
       {/* Background Accent */}
       <div className="absolute top-0 right-0 w-80 h-full bg-gradient-to-l from-[#FF3E00]/10 via-[#FF3E00]/5 to-transparent pointer-events-none" />
 

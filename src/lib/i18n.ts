@@ -2,7 +2,7 @@ export const translations = {
   en: {
     appTitle: 'PricePulse',
     tagline: 'Multi-Store Product Research & Price Comparison',
-    searchPlaceholder: 'Search product e.g., "Teej ke liye ₹2000 ke andar silk saree" or "Headphones under 4000"...',
+    searchPlaceholder: 'Search any product: "OnePlus 12R", "Puma running shoes under 2500", "Air fryer", "Cotton kurta", "Sony headphones"...',
     searchButton: 'Search & Compare',
     searching: 'Searching Stores...',
     cancelSearch: 'Cancel Search',
@@ -51,7 +51,7 @@ export const translations = {
   hi: {
     appTitle: 'प्राइसपल्स',
     tagline: 'मल्टी-स्टोर शॉपिंग रिसर्च और मूल्य तुलना',
-    searchPlaceholder: 'उत्पाद खोजें जैसे "तीज के लिए ₹2000 के अंदर सिल्क साड़ी" या "हेडफोन 4000 के नीचे"...',
+    searchPlaceholder: 'कोई भी उत्पाद खोजें: "वनप्लस फोन", "प्यूमा रनिंग शूज 2500 के अंदर", "एयर फ्रायर", "कॉटन कुर्ता", "सोनी हेडफोन"...',
     searchButton: 'खोजें और तुलना करें',
     searching: 'स्टोर्स में खोज जारी है...',
     cancelSearch: 'खोज रद्द करें',

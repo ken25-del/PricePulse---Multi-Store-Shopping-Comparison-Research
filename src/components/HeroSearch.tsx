@@ -17,6 +17,7 @@ interface HeroSearchProps {
   recentSearches: string[];
   onSelectRecentSearch: (query: string) => void;
   initialQuery?: string;
+  isCompact?: boolean;
 }
 
 export const HeroSearch: React.FC<HeroSearchProps> = ({
@@ -32,7 +33,8 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({
   onOpenWelcomeTour,
   recentSearches,
   onSelectRecentSearch,
-  initialQuery = ''
+  initialQuery = '',
+  isCompact = false
 }) => {
   const [query, setQuery] = useState(initialQuery);
   const t = translations[settings.language];
@@ -56,6 +58,100 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({
   };
 
   const activeSources = allSources.filter(s => selectedSourceIds.includes(s.id));
+
+  // COMPACT MODE: After user searches, hide heavy hero header & banner, keep only clean search bar and concise controls
+  if (isCompact) {
+    return (
+      <div className="w-full max-w-5xl mx-auto pt-2 pb-2 px-1 sm:px-2">
+        <form onSubmit={handleSubmit} className="relative">
+          <div className="relative flex items-center bg-white dark:bg-[#121212] border-2 border-zinc-300 dark:border-[#2c2c2c] focus-within:border-[#FF3E00] rounded-xl transition-all p-1 shadow-md">
+            <div className="pl-3 pr-2 text-zinc-400 dark:text-zinc-500">
+              <Search className="w-5 h-5" />
+            </div>
+
+            <input
+              id="compact-search-input"
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={t.searchPlaceholder}
+              disabled={isSearching}
+              className="w-full py-2 px-2 text-sm sm:text-base text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 bg-transparent focus:outline-none disabled:opacity-60 font-medium"
+            />
+
+            {query && !isSearching && (
+              <button
+                type="button"
+                onClick={() => setQuery('')}
+                className="p-1.5 text-zinc-400 hover:text-zinc-800 dark:hover:text-white mr-1 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+
+            {isSearching ? (
+              <button
+                id="cancel-search-btn"
+                type="button"
+                onClick={onCancelSearch}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono font-bold uppercase tracking-wider bg-rose-600 hover:bg-rose-700 text-white shadow transition-all cursor-pointer"
+              >
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="hidden sm:inline">{t.cancelSearch}</span>
+              </button>
+            ) : (
+              <button
+                id="submit-search-btn"
+                type="submit"
+                disabled={!query.trim()}
+                className="flex items-center gap-1.5 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-mono font-black uppercase tracking-wider bg-[#FF3E00] hover:bg-[#E03600] disabled:opacity-40 disabled:hover:bg-[#FF3E00] text-black shadow-md transition-all cursor-pointer shrink-0"
+              >
+                <span>{t.searchButton}</span>
+                <ArrowRight className="w-4 h-4 hidden sm:inline stroke-[2.5]" />
+              </button>
+            )}
+          </div>
+        </form>
+
+        {/* Compact Quick Switch Chips & Sources Trigger */}
+        <div className="mt-2.5 flex items-center justify-between gap-2 text-xs font-mono">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 max-w-[70%]">
+            <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-wider shrink-0">
+              Quick:
+            </span>
+            {[
+              { label: '📱 Mobiles', query: 'OnePlus 12R 5G phone' },
+              { label: '🎧 Sony TWS', query: 'Sony WH-1000XM5 wireless headphones' },
+              { label: '👟 Puma Shoes', query: 'Puma running shoes under 2500' },
+              { label: '🍳 Air Fryer', query: 'Philips digital air fryer 4.1L' },
+              { label: '💻 Laptops', query: 'MacBook Air M2 16GB' },
+              { label: '✨ Silk Saree', query: 'Banarasi silk woven saree' }
+            ].map((cat, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => handleChipClick(cat.query)}
+                className="shrink-0 px-2 py-0.5 rounded-md text-[11px] font-medium bg-zinc-100 dark:bg-[#161616] hover:bg-orange-50 dark:hover:bg-[#201815] text-zinc-700 dark:text-zinc-300 hover:text-[#FF3E00] border border-zinc-200 dark:border-[#2a2a2a] transition-colors cursor-pointer"
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0 text-[11px] font-bold">
+            <button
+              type="button"
+              onClick={onOpenSourceSelector}
+              className="flex items-center gap-1 text-[#FF3E00] hover:underline cursor-pointer"
+            >
+              <SlidersHorizontal className="w-3 h-3" />
+              <span>{activeSources.length} STORES</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-4xl mx-auto pt-8 pb-4 px-4">
@@ -185,9 +281,43 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({
         </div>
       </div>
 
+      {/* Category Trending Quick Search Chips */}
+      <div className="mt-4 pt-2 border-t border-zinc-200 dark:border-[#222222]">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+            {settings.language === 'hi' ? 'लोकप्रिय श्रेणियां और त्वरित खोज:' : 'Trending Across Top Categories:'}
+          </span>
+          <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500">
+            {settings.language === 'hi' ? 'क्लिक करके तुरंत तुलना करें' : 'Click to compare instantly'}
+          </span>
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {[
+            { label: '📱 Mobiles', query: 'OnePlus 12R 5G phone' },
+            { label: '🎧 Audio & TWS', query: 'Sony WH-1000XM5 wireless headphones' },
+            { label: '👟 Running Shoes', query: 'Puma running shoes under 2500' },
+            { label: '💻 Laptops', query: 'MacBook Air M2 16GB' },
+            { label: '⌚ Smartwatches', query: 'Noise ColorFit smartwatch' },
+            { label: '🍳 Air Fryer', query: 'Philips digital air fryer 4.1L' },
+            { label: '👔 Cotton Kurta', query: 'Pure cotton embroidered kurta' },
+            { label: '👖 Denim Jeans', query: "Levi's 511 slim fit denim jeans" },
+            { label: '✨ Silk Saree', query: 'Banarasi silk woven saree' }
+          ].map((cat, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => handleChipClick(cat.query)}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-zinc-100 dark:bg-[#181818] hover:bg-orange-50 dark:hover:bg-[#201815] text-zinc-700 dark:text-zinc-300 hover:text-[#FF3E00] dark:hover:text-[#FF6A3D] border border-zinc-200 dark:border-[#2e2e2e] hover:border-[#FF3E00]/40 transition-colors cursor-pointer"
+            >
+              <span>{cat.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Recent Searches (if user has any) or Quick Guide Link */}
       {(recentSearches.length > 0 || onOpenWelcomeTour) && (
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
           {recentSearches.length > 0 ? (
             <div className="flex items-center gap-1.5 flex-wrap">
               <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest">
