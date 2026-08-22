@@ -8,17 +8,42 @@
   --color-flame-hover: #E03600;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
+  --bg-app: #f8f9fa;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f1f3f5;
+  --bg-card: #ffffff;
+  --border-subtle: #e4e4e7;
+  --border-strong: #d4d4d8;
+  --text-main: #09090b;
+  --text-muted: #52525b;
+  --text-subtle: #71717a;
+  color-scheme: light;
+}
+
+.dark {
+  --bg-app: #080808;
+  --bg-surface: #101010;
+  --bg-surface-elevated: #161616;
+  --bg-card: #121212;
+  --border-subtle: #242424;
+  --border-strong: #333333;
+  --text-main: #f4f4f4;
+  --text-muted: #a1a1aa;
+  --text-subtle: #71717a;
   color-scheme: dark;
 }
 
 body {
   margin: 0;
-  background-color: #080808;
-  color: #f4f4f4;
+  background-color: var(--bg-app);
+  color: var(--text-main);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Bold Typography Utility helpers */
@@ -31,21 +56,22 @@ body {
   font-feature-settings: "tnum" 1;
 }
 
-/* Custom crisp dark scrollbar */
+/* Custom crisp scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d0d0d;
+  background: var(--bg-surface);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
+  background: var(--border-strong);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #FF3E00;
 }
+

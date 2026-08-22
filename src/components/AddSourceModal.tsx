@@ -69,21 +69,21 @@ export const AddSourceModal: React.FC<AddSourceModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg flex flex-col bg-[#0d0d0d] rounded-xl shadow-2xl border border-[#262626] overflow-hidden text-[#f4f4f4]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 dark:bg-black/80 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-200">
+      <div className="relative w-full max-w-lg flex flex-col bg-white dark:bg-[#0d0d0d] rounded-xl shadow-2xl border border-zinc-200 dark:border-[#262626] overflow-hidden text-zinc-900 dark:text-[#f4f4f4] transition-colors">
         
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between px-5 py-3.5 border-b border-[#242424] bg-[#0d0d0d]/95 backdrop-blur-md font-mono">
+        <div className="sticky top-0 z-10 flex items-center justify-between px-5 py-3.5 border-b border-zinc-200 dark:border-[#242424] bg-white/95 dark:bg-[#0d0d0d]/95 backdrop-blur-md font-mono">
           <div className="flex items-center gap-2">
             <Globe className="w-5 h-5 text-[#FF3E00]" />
-            <h2 className="font-bold text-sm uppercase tracking-wider text-white">
+            <h2 className="font-bold text-sm uppercase tracking-wider text-zinc-900 dark:text-white">
               ADD CUSTOM SHOPPING SOURCE
             </h2>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-sm hover:bg-[#1a1a1a] border border-[#303030] text-zinc-400 hover:text-white cursor-pointer"
+            className="p-1.5 rounded-sm hover:bg-zinc-100 dark:hover:bg-[#1a1a1a] border border-zinc-300 dark:border-[#303030] text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -91,7 +91,7 @@ export const AddSourceModal: React.FC<AddSourceModalProps> = ({
 
         {/* Body */}
         <div className="p-5 sm:p-6 space-y-4 text-xs">
-          <p className="text-zinc-400">
+          <p className="text-zinc-600 dark:text-zinc-400">
             Enter any public ecommerce website or online store domain to analyze compatibility with PricePulse multi-store research.
           </p>
 
@@ -102,7 +102,7 @@ export const AddSourceModal: React.FC<AddSourceModalProps> = ({
               onChange={(e) => setUrlInput(e.target.value)}
               placeholder="e.g. nalli.com or https://karagiri.com"
               disabled={isAnalyzing}
-              className="flex-1 p-2.5 rounded-md border border-[#2a2a2a] bg-[#121212] text-white font-mono text-xs focus:outline-hidden focus:border-[#FF3E00]"
+              className="flex-1 p-2.5 rounded-md border border-zinc-300 dark:border-[#2a2a2a] bg-zinc-50 dark:bg-[#121212] text-zinc-900 dark:text-white font-mono text-xs focus:outline-hidden focus:border-[#FF3E00]"
             />
             <button
               type="submit"
@@ -115,31 +115,31 @@ export const AddSourceModal: React.FC<AddSourceModalProps> = ({
           </form>
 
           {errorMsg && (
-            <div className="p-3 rounded-md bg-[#201010] text-rose-300 border border-rose-900 flex items-center gap-2 font-mono">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+            <div className="p-3 rounded-md bg-rose-50 dark:bg-[#201010] text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-900 flex items-center gap-2 font-mono">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-500 dark:text-rose-400" />
               <span>{errorMsg}</span>
             </div>
           )}
 
           {analysisResult && (
-            <div className="p-4 rounded-lg border border-[#2a2a2a] bg-[#141414] space-y-3 font-mono">
+            <div className="p-4 rounded-lg border border-zinc-200 dark:border-[#2a2a2a] bg-zinc-50 dark:bg-[#141414] space-y-3 font-mono">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 font-bold text-white text-sm">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <div className="flex items-center gap-2 font-bold text-zinc-900 dark:text-white text-sm">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <span>{analysisResult.siteName}</span>
                 </div>
-                <span className="px-2 py-0.5 rounded-xs bg-[#1f3020] text-emerald-300 border border-emerald-800 font-bold text-[10px]">
+                <span className="px-2 py-0.5 rounded-xs bg-emerald-100 dark:bg-[#1f3020] text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 font-bold text-[10px]">
                   COMPATIBILITY: {analysisResult.compatibilityScore}%
                 </span>
               </div>
 
-              <p className="text-zinc-400 text-xs font-sans">
+              <p className="text-zinc-600 dark:text-zinc-400 text-xs font-sans">
                 {analysisResult.message}
               </p>
 
-              <div className="grid grid-cols-2 gap-2 text-[11px] pt-1 text-zinc-300">
-                <div>DOMAIN: <strong className="text-white">{analysisResult.domain}</strong></div>
-                <div>PUBLIC CATALOG: <strong className="text-white">{analysisResult.supportsPublicCatalog ? 'YES' : 'LIMITED'}</strong></div>
+              <div className="grid grid-cols-2 gap-2 text-[11px] pt-1 text-zinc-600 dark:text-zinc-300">
+                <div>DOMAIN: <strong className="text-zinc-900 dark:text-white">{analysisResult.domain}</strong></div>
+                <div>PUBLIC CATALOG: <strong className="text-zinc-900 dark:text-white">{analysisResult.supportsPublicCatalog ? 'YES' : 'LIMITED'}</strong></div>
               </div>
 
               <div className="pt-2">

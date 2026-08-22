@@ -37,7 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const t = translations[settings.language];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#222222] bg-[#080808]/95 backdrop-blur-md transition-colors text-[#f4f4f4]">
+    <header className="sticky top-0 z-40 w-full border-b border-zinc-200 dark:border-[#222222] bg-white/95 dark:bg-[#080808]/95 backdrop-blur-md transition-colors text-zinc-900 dark:text-[#f4f4f4]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand */}
         <button
@@ -50,14 +50,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-display font-black text-xl tracking-tight text-white uppercase">
+              <span className="font-display font-black text-xl tracking-tight text-zinc-900 dark:text-white uppercase">
                 {t.appTitle}
               </span>
-              <span className="text-[10px] uppercase tracking-widest font-mono font-bold bg-[#1a1a1a] text-[#FF3E00] px-2 py-0.5 rounded-sm border border-[#333333]">
+              <span className="text-[10px] uppercase tracking-widest font-mono font-bold bg-zinc-100 dark:bg-[#1a1a1a] text-[#FF3E00] px-2 py-0.5 rounded-sm border border-zinc-300 dark:border-[#333333]">
                 MULTI-STORE
               </span>
             </div>
-            <p className="text-[10px] uppercase font-mono tracking-wider text-zinc-400 hidden sm:block">
+            <p className="text-[10px] uppercase font-mono tracking-wider text-zinc-500 dark:text-zinc-400 hidden sm:block">
               {settings.language === 'hi' ? 'स्मार्ट खरीदारी और मूल्य तुलना' : 'Real-Time Price & Review Intelligence'}
             </p>
           </div>
@@ -69,7 +69,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {settings.aiEnabled && (
             <div 
               title="AI Review & Intent Intelligence Active"
-              className="hidden lg:flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-md bg-[#161616] text-[#FF3E00] border border-[#2a2a2a]"
+              className="hidden lg:flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-md bg-zinc-100 dark:bg-[#161616] text-[#FF3E00] border border-zinc-300 dark:border-[#2a2a2a]"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>AI CORE</span>
@@ -81,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             id="nav-lang-btn"
             onClick={onToggleLanguage}
             title="Switch Language"
-            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-zinc-300 hover:text-white bg-[#141414] hover:bg-[#202020] rounded-md transition-colors border border-[#2a2a2a]"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white bg-zinc-100 dark:bg-[#141414] hover:bg-zinc-200 dark:hover:bg-[#202020] rounded-md transition-colors border border-zinc-300 dark:border-[#2a2a2a] cursor-pointer"
           >
             <Globe className="w-3.5 h-3.5 text-[#FF3E00]" />
             <span>{settings.language === 'en' ? 'HI' : 'EN'}</span>
@@ -91,10 +91,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             id="nav-theme-btn"
             onClick={onToggleTheme}
-            title={settings.theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            className="p-2 text-zinc-300 hover:text-white bg-[#141414] hover:bg-[#202020] rounded-md transition-colors border border-[#2a2a2a]"
+            title={settings.theme === 'dark' ? 'Switch to White/Light Theme' : 'Switch to Dark Theme'}
+            className="p-2 text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white bg-zinc-100 dark:bg-[#141414] hover:bg-zinc-200 dark:hover:bg-[#202020] rounded-md transition-colors border border-zinc-300 dark:border-[#2a2a2a] cursor-pointer"
           >
-            {settings.theme === 'dark' ? <Sun className="w-4 h-4 text-[#FF3E00]" /> : <Moon className="w-4 h-4" />}
+            {settings.theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-700" />}
           </button>
 
           {/* Price Watch Button with Alert Indicator */}
@@ -103,12 +103,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="nav-price-watch-btn"
               onClick={onOpenPriceWatch}
               title={priceDropAlertCount > 0 ? `Price Alert: ${priceDropAlertCount} price drops detected!` : 'Price Watch List'}
-              className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-bold uppercase tracking-wider transition-all border ${
+              className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-bold uppercase tracking-wider transition-all border cursor-pointer ${
                 priceDropAlertCount > 0
                   ? 'bg-amber-400 text-black border-amber-400 shadow-md ring-2 ring-amber-400/40 animate-pulse'
                   : priceWatchCount > 0
-                  ? 'bg-[#1e1e1e] text-amber-300 hover:text-amber-200 border-amber-500/40'
-                  : 'text-zinc-300 hover:text-white bg-[#141414] hover:bg-[#202020] border-[#2a2a2a]'
+                  ? 'bg-amber-50 dark:bg-[#1e1e1e] text-amber-700 dark:text-amber-300 hover:text-amber-800 dark:hover:text-amber-200 border-amber-300 dark:border-amber-500/40'
+                  : 'text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white bg-zinc-100 dark:bg-[#141414] hover:bg-zinc-200 dark:hover:bg-[#202020] border-zinc-300 dark:border-[#2a2a2a]'
               }`}
             >
               {priceDropAlertCount > 0 ? (
@@ -123,7 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {priceDropAlertCount} DROP{priceDropAlertCount > 1 ? 'S' : ''}!
                 </span>
               ) : priceWatchCount > 0 ? (
-                <span className="ml-1 px-1.5 py-0.2 text-[10px] font-black rounded-sm bg-black/70 text-amber-300">
+                <span className="ml-1 px-1.5 py-0.2 text-[10px] font-black rounded-sm bg-zinc-200 dark:bg-black/70 text-amber-800 dark:text-amber-300">
                   {priceWatchCount}
                 </span>
               ) : null}
@@ -143,10 +143,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             id="nav-compare-btn"
             onClick={onOpenCompare}
             title="Side-by-Side Compare Tray"
-            className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-bold uppercase tracking-wider transition-all border ${
+            className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-bold uppercase tracking-wider transition-all border cursor-pointer ${
               compareCount > 0
-                ? 'bg-white text-black border-white shadow-sm'
-                : 'text-zinc-300 hover:text-white bg-[#141414] hover:bg-[#202020] border-[#2a2a2a]'
+                ? 'bg-zinc-900 dark:bg-white text-white dark:text-black border-zinc-900 dark:border-white shadow-sm'
+                : 'text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white bg-zinc-100 dark:bg-[#141414] hover:bg-zinc-200 dark:hover:bg-[#202020] border-zinc-300 dark:border-[#2a2a2a]'
             }`}
           >
             <Scale className="w-3.5 h-3.5" />
@@ -163,10 +163,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             id="nav-wishlist-btn"
             onClick={onOpenWishlist}
             title="Saved Items"
-            className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-bold uppercase tracking-wider transition-all border ${
+            className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-bold uppercase tracking-wider transition-all border cursor-pointer ${
               wishlistCount > 0
                 ? 'bg-[#FF3E00] text-black border-[#FF3E00] shadow-sm'
-                : 'text-zinc-300 hover:text-white bg-[#141414] hover:bg-[#202020] border-[#2a2a2a]'
+                : 'text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white bg-zinc-100 dark:bg-[#141414] hover:bg-zinc-200 dark:hover:bg-[#202020] border-zinc-300 dark:border-[#2a2a2a]'
             }`}
           >
             <Heart className={`w-3.5 h-3.5 ${wishlistCount > 0 ? 'fill-black stroke-black' : ''}`} />
@@ -184,7 +184,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="nav-welcome-tour-btn"
               onClick={onOpenWelcomeTour}
               title="Why PricePulse is better than extensions & Features Walkthrough"
-              className="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#FF3E00] hover:text-white bg-[#141414] hover:bg-[#FF3E00]/20 rounded-md transition-colors border border-[#FF3E00]/40 cursor-pointer"
+              className="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#FF3E00] hover:text-[#E03600] dark:hover:text-white bg-orange-50 dark:bg-[#141414] hover:bg-orange-100 dark:hover:bg-[#FF3E00]/20 rounded-md transition-colors border border-[#FF3E00]/40 cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span className="hidden md:inline">{settings.language === 'hi' ? 'गाइड' : 'Why Us'}</span>
@@ -196,7 +196,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             id="nav-settings-btn"
             onClick={onOpenSettings}
             title="Application & AI Settings"
-            className="p-2 text-zinc-300 hover:text-white bg-[#141414] hover:bg-[#202020] rounded-md transition-colors border border-[#2a2a2a] cursor-pointer"
+            className="p-2 text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white bg-zinc-100 dark:bg-[#141414] hover:bg-zinc-200 dark:hover:bg-[#202020] rounded-md transition-colors border border-zinc-300 dark:border-[#2a2a2a] cursor-pointer"
           >
             <Settings className="w-4 h-4" />
           </button>

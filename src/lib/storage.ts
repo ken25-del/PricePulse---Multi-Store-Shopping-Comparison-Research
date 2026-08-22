@@ -12,7 +12,7 @@ const LAST_APP_LOAD_KEY = 'pricepulse_last_app_load_ts';
 export const DEFAULT_SETTINGS: AppSettings = {
   language: 'en',
   currency: 'INR',
-  theme: 'dark',
+  theme: 'light',
   aiEnabled: true,
   aiProvider: 'gemini',
   selectedSources: ['amazon', 'flipkart', 'myntra', 'meesho', 'ajio', 'nykaa', 'tatacliq'],

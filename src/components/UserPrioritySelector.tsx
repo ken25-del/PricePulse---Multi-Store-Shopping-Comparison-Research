@@ -1,10 +1,12 @@
 import React from 'react';
 import { UserPriority } from '../types';
-import { Sparkles, DollarSign, Award, Star, ShieldCheck, Truck, RefreshCw, Layers } from 'lucide-react';
+import { Sparkles, DollarSign, Award, Star, Layers, Truck, RefreshCw } from 'lucide-react';
 
 interface UserPrioritySelectorProps {
-  currentPriority: UserPriority;
-  onSelectPriority: (priority: UserPriority) => void;
+  currentPriority?: UserPriority;
+  selectedPriority?: UserPriority;
+  onSelectPriority?: (priority: UserPriority) => void;
+  onChangePriority?: (priority: UserPriority) => void;
 }
 
 interface PriorityOption {
@@ -26,18 +28,26 @@ const PRIORITIES: PriorityOption[] = [
 
 export const UserPrioritySelector: React.FC<UserPrioritySelectorProps> = ({
   currentPriority,
-  onSelectPriority
+  selectedPriority,
+  onSelectPriority,
+  onChangePriority
 }) => {
+  const activePriority = selectedPriority || currentPriority || 'balanced';
+  const handleSelect = (priority: UserPriority) => {
+    if (onChangePriority) onChangePriority(priority);
+    if (onSelectPriority) onSelectPriority(priority);
+  };
+
   return (
-    <div className="bg-[#111111] border border-[#242424] rounded-xl p-3 sm:p-4 mb-6">
+    <div className="bg-white dark:bg-[#111111] border border-zinc-200 dark:border-[#242424] rounded-xl p-3 sm:p-4 mb-6 shadow-xs transition-colors">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#FF3E00] animate-pulse" />
-          <span className="font-mono text-xs font-black uppercase tracking-wider text-white">
+          <span className="font-mono text-xs font-black uppercase tracking-wider text-zinc-900 dark:text-white">
             Prioritize Research By:
           </span>
         </div>
-        <span className="text-[11px] font-mono text-zinc-400">
+        <span className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
           Rankings and decision highlights dynamically adjust
         </span>
       </div>
@@ -45,19 +55,19 @@ export const UserPrioritySelector: React.FC<UserPrioritySelectorProps> = ({
       <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
         {PRIORITIES.map(opt => {
           const Icon = opt.icon;
-          const isActive = currentPriority === opt.id;
+          const isActive = activePriority === opt.id;
           return (
             <button
               key={opt.id}
               type="button"
-              onClick={() => onSelectPriority(opt.id)}
+              onClick={() => handleSelect(opt.id)}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-mono transition-all shrink-0 cursor-pointer border ${
                 isActive
                   ? 'bg-[#FF3E00] text-black border-[#FF3E00] font-black shadow-md'
-                  : 'bg-[#181818] text-zinc-300 hover:text-white hover:bg-[#202020] border-[#2c2c2c]'
+                  : 'bg-zinc-100 dark:bg-[#181818] text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200 dark:hover:bg-[#202020] border-zinc-300 dark:border-[#2c2c2c]'
               }`}
             >
-              <Icon className={`w-3.5 h-3.5 ${isActive ? 'stroke-[2.5]' : 'text-zinc-400'}`} />
+              <Icon className={`w-3.5 h-3.5 ${isActive ? 'stroke-[2.5]' : 'text-zinc-500 dark:text-zinc-400'}`} />
               <div className="text-left">
                 <div className="leading-tight">{opt.label}</div>
               </div>
@@ -68,3 +78,4 @@ export const UserPrioritySelector: React.FC<UserPrioritySelectorProps> = ({
     </div>
   );
 };
+

@@ -2,5 +2,7 @@
   "name": "PricePulse - Multi-Store Shopping Comparison & Research",
   "description": "Comprehensive multi-store shopping research and price comparison engine across top shopping platforms with review intelligence and direct store checkout.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

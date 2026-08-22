@@ -532,11 +532,11 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0d0d0d] text-[#f4f4f4] flex flex-col font-sans transition-colors">
+    <div className="min-h-screen bg-zinc-50 dark:bg-[#0d0d0d] text-zinc-900 dark:text-[#f4f4f4] flex flex-col font-sans transition-colors">
       
       {/* Offline Banner if disconnected */}
       {isOffline && (
-        <div className="bg-[#1f1010] border-b border-rose-900 text-rose-400 text-xs font-mono font-bold py-2 px-4 text-center flex items-center justify-center gap-2 uppercase tracking-wider">
+        <div className="bg-rose-100 dark:bg-[#1f1010] border-b border-rose-300 dark:border-rose-900 text-rose-700 dark:text-rose-400 text-xs font-mono font-bold py-2 px-4 text-center flex items-center justify-center gap-2 uppercase tracking-wider">
           <WifiOff className="w-4 h-4" />
           <span>{t.offlineNotice}</span>
         </div>
@@ -569,7 +569,7 @@ export default function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         {/* Price Drop Alert Notification Banner (On App Load) */}
         {showPriceDropBanner && priceDropAlerts.length > 0 && (
-          <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-amber-950/70 via-black to-[#1a140d] border-2 border-amber-500/70 shadow-xl font-mono text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
+          <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-amber-100 via-amber-50 to-orange-50 dark:from-amber-950/70 dark:via-black dark:to-[#1a140d] border-2 border-amber-400 dark:border-amber-500/70 shadow-xl font-mono text-zinc-900 dark:text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
             <div className="flex items-start gap-3">
               <div className="p-2.5 rounded-lg bg-amber-400 text-black shrink-0 mt-0.5 shadow-md">
                 <BellRing className="w-5 h-5 animate-bounce" />
@@ -579,27 +579,27 @@ export default function App() {
                   <span className="px-2 py-0.5 rounded-sm bg-amber-400 text-black text-[10px] font-black uppercase tracking-wider">
                     PRICE DROP DETECTED!
                   </span>
-                  <span className="text-xs font-bold text-amber-200">
+                  <span className="text-xs font-bold text-amber-900 dark:text-amber-200">
                     {priceDropAlerts.length} item{priceDropAlerts.length > 1 ? 's' : ''} in your Price Watch {priceDropAlerts.length > 1 ? 'have' : 'has'} dropped in price!
                   </span>
                 </div>
-                <div className="flex flex-wrap gap-2 text-xs text-zinc-300 font-sans">
+                <div className="flex flex-wrap gap-2 text-xs text-zinc-700 dark:text-zinc-300 font-sans">
                   {priceDropAlerts.slice(0, 2).map((alert) => (
-                    <span key={alert.id} className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-black/60 border border-amber-500/30 text-amber-300">
-                      <TrendingDown className="w-3.5 h-3.5 text-emerald-400" />
-                      <strong className="text-white truncate max-w-[160px] sm:max-w-[220px]">{alert.canonicalTitle}</strong>
-                      <span className="text-emerald-400 font-mono font-bold font-mono-num">
+                    <span key={alert.id} className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/80 dark:bg-black/60 border border-amber-400 dark:border-amber-500/30 text-amber-900 dark:text-amber-300 shadow-2xs">
+                      <TrendingDown className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                      <strong className="text-zinc-900 dark:text-white truncate max-w-[160px] sm:max-w-[220px]">{alert.canonicalTitle}</strong>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-mono font-bold font-mono-num">
                         ₹{alert.currentPrice.toLocaleString('en-IN')}
                       </span>
                       {alert.priceDropPercent && (
-                        <span className="text-[10px] px-1 bg-emerald-950 text-emerald-300 border border-emerald-800 rounded-xs">
+                        <span className="text-[10px] px-1 bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 rounded-xs font-bold">
                           -{alert.priceDropPercent}%
                         </span>
                       )}
                     </span>
                   ))}
                   {priceDropAlerts.length > 2 && (
-                    <span className="text-xs text-zinc-400 self-center">
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 self-center">
                       +{priceDropAlerts.length - 2} more
                     </span>
                   )}
@@ -618,7 +618,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setShowPriceDropBanner(false)}
-                className="p-1.5 rounded-md text-zinc-400 hover:text-white bg-black/40 hover:bg-black border border-white/10 cursor-pointer"
+                className="p-1.5 rounded-md text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-white bg-zinc-200/60 dark:bg-black/40 hover:bg-zinc-200 dark:hover:bg-black border border-zinc-300 dark:border-white/10 cursor-pointer"
                 title="Dismiss banner"
               >
                 <X className="w-4 h-4" />
@@ -714,22 +714,22 @@ export default function App() {
             </div>
 
             {/* Mobile Filter Trigger */}
-            <div className="flex lg:hidden items-center justify-between gap-2 pb-2 border-b border-[#242424]">
+            <div className="flex lg:hidden items-center justify-between gap-2 pb-2 border-b border-zinc-200 dark:border-[#242424]">
               <button
                 type="button"
                 onClick={() => setIsMobileFilterOpen(true)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-sm bg-[#181818] border border-[#303030] text-xs font-mono font-bold text-white uppercase tracking-wider cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-sm bg-white dark:bg-[#181818] border border-zinc-300 dark:border-[#303030] text-xs font-mono font-bold text-zinc-900 dark:text-white uppercase tracking-wider cursor-pointer shadow-xs"
               >
                 <SlidersHorizontal className="w-4 h-4 text-[#FF3E00]" />
                 <span>FILTERS & REFINEMENTS</span>
               </button>
 
               <div className="flex items-center gap-1 text-xs font-mono">
-                <ArrowUpDown className="w-3.5 h-3.5 text-zinc-500" />
+                <ArrowUpDown className="w-3.5 h-3.5 text-zinc-400" />
                 <select
                   value={filters.sortBy}
                   onChange={(e) => setFilters({ ...filters, sortBy: e.target.value as any })}
-                  className="bg-[#121212] border border-[#2e2e2e] text-zinc-300 rounded-xs px-2 py-1 font-bold text-xs uppercase focus:outline-hidden"
+                  className="bg-white dark:bg-[#121212] border border-zinc-300 dark:border-[#2e2e2e] text-zinc-800 dark:text-zinc-300 rounded-xs px-2 py-1 font-bold text-xs uppercase focus:outline-hidden"
                 >
                   <option value="relevance">{t.relevance}</option>
                   <option value="price_low">{t.priceLow}</option>
@@ -745,20 +745,20 @@ export default function App() {
             <div className="flex-1 min-w-0 space-y-6">
               
               {/* Sort & Summary Header */}
-              <div className="hidden lg:flex items-center justify-between pb-3 border-b border-[#242424] text-xs font-mono text-zinc-400">
+              <div className="hidden lg:flex items-center justify-between pb-3 border-b border-zinc-200 dark:border-[#242424] text-xs font-mono text-zinc-500 dark:text-zinc-400">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-white uppercase tracking-wider">
+                  <span className="font-bold text-zinc-900 dark:text-white uppercase tracking-wider">
                     SHOWING {filteredExactGroups.length + filteredSimilarGroups.length} PRODUCT GROUPS
                   </span>
-                  <span className="text-zinc-500">({totalFound} VERIFIED STORE LISTINGS)</span>
+                  <span className="text-zinc-400 dark:text-zinc-500">({totalFound} VERIFIED STORE LISTINGS)</span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-zinc-400 uppercase tracking-wider">{t.sortBy.toUpperCase()}:</span>
+                  <span className="font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">{t.sortBy.toUpperCase()}:</span>
                   <select
                     value={filters.sortBy}
                     onChange={(e) => setFilters({ ...filters, sortBy: e.target.value as any })}
-                    className="p-1.5 rounded-sm bg-[#161616] border border-[#303030] font-bold uppercase text-white focus:outline-hidden cursor-pointer"
+                    className="p-1.5 rounded-sm bg-white dark:bg-[#161616] border border-zinc-300 dark:border-[#303030] font-bold uppercase text-zinc-900 dark:text-white focus:outline-hidden cursor-pointer"
                   >
                     <option value="relevance">{t.relevance}</option>
                     <option value="price_low">{t.priceLow}</option>
@@ -773,11 +773,11 @@ export default function App() {
 
               {/* Error Notification */}
               {searchError && (
-                <div className="p-4 rounded-lg bg-[#241212] border border-rose-900 text-rose-300 text-xs font-mono flex items-start gap-2.5">
-                  <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                <div className="p-4 rounded-lg bg-rose-50 dark:bg-[#241212] border border-rose-200 dark:border-rose-900 text-rose-800 dark:text-rose-300 text-xs font-mono flex items-start gap-2.5">
+                  <AlertCircle className="w-4 h-4 text-rose-500 dark:text-rose-400 shrink-0 mt-0.5" />
                   <div>
                     <strong className="block font-bold uppercase mb-0.5">SEARCH ENCOUNTERED AN ISSUE</strong>
-                    <span className="font-sans text-rose-200">{searchError}</span>
+                    <span className="font-sans text-rose-700 dark:text-rose-200">{searchError}</span>
                   </div>
                 </div>
               )}
@@ -785,8 +785,8 @@ export default function App() {
               {/* Section 1: Exact / Multi-Store Matches (The Core Experience) */}
               {filteredExactGroups.length > 0 && (
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between pb-2 border-b border-[#242424]">
-                    <h2 className="text-sm sm:text-base font-mono font-black uppercase tracking-wider text-white flex items-center gap-2">
+                  <div className="flex items-center justify-between pb-2 border-b border-zinc-200 dark:border-[#242424]">
+                    <h2 className="text-sm sm:text-base font-mono font-black uppercase tracking-wider text-zinc-900 dark:text-white flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-xs bg-emerald-500 inline-block"></span>
                       <span>{t.exactMatch.toUpperCase()} ({filteredExactGroups.length})</span>
                     </h2>
@@ -818,8 +818,8 @@ export default function App() {
               {/* Section 2: Similar Products */}
               {filteredSimilarGroups.length > 0 && (
                 <div className="space-y-4 pt-4">
-                  <div className="flex items-center justify-between pb-2 border-b border-[#242424]">
-                    <h2 className="text-sm sm:text-base font-mono font-black uppercase tracking-wider text-white flex items-center gap-2">
+                  <div className="flex items-center justify-between pb-2 border-b border-zinc-200 dark:border-[#242424]">
+                    <h2 className="text-sm sm:text-base font-mono font-black uppercase tracking-wider text-zinc-900 dark:text-white flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-xs bg-[#FF3E00] inline-block"></span>
                       <span>{t.similarProducts.toUpperCase()} ({filteredSimilarGroups.length})</span>
                     </h2>
@@ -850,12 +850,12 @@ export default function App() {
 
               {/* Empty Results State */}
               {!isSearching && filteredExactGroups.length === 0 && filteredSimilarGroups.length === 0 && (
-                <div className="py-16 text-center bg-[#121212] rounded-xl border border-[#262626] p-8 shadow-sm font-mono">
-                  <PackageSearch className="w-14 h-14 mx-auto text-zinc-500 mb-3 stroke-[1.2]" />
-                  <h3 className="font-bold text-base uppercase tracking-wider text-white">
+                <div className="py-16 text-center bg-white dark:bg-[#121212] rounded-xl border border-zinc-200 dark:border-[#262626] p-8 shadow-sm font-mono">
+                  <PackageSearch className="w-14 h-14 mx-auto text-zinc-400 dark:text-zinc-500 mb-3 stroke-[1.2]" />
+                  <h3 className="font-bold text-base uppercase tracking-wider text-zinc-900 dark:text-white">
                     {t.noResultsFound.toUpperCase()}
                   </h3>
-                  <p className="text-xs text-zinc-400 mt-1 max-w-md mx-auto font-sans">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 max-w-md mx-auto font-sans">
                     {t.tryAdjustingFilters}
                   </p>
                   <div className="mt-4 flex justify-center gap-2">
@@ -869,7 +869,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => setIsSourceSelectorOpen(true)}
-                      className="px-4 py-2 rounded-sm bg-[#1e1e1e] hover:bg-[#282828] border border-[#333333] text-white font-bold text-xs uppercase tracking-wider cursor-pointer"
+                      className="px-4 py-2 rounded-sm bg-zinc-100 dark:bg-[#1e1e1e] hover:bg-zinc-200 dark:hover:bg-[#282828] border border-zinc-300 dark:border-[#333333] text-zinc-900 dark:text-white font-bold text-xs uppercase tracking-wider cursor-pointer"
                     >
                       SELECT MORE STORES
                     </button>
@@ -884,13 +884,13 @@ export default function App() {
         {/* Welcome Empty State on Fresh Load */}
         {!hasSearched && (
           <div className="py-16 text-center max-w-xl mx-auto space-y-4">
-            <div className="w-16 h-16 rounded-xl bg-[#FF3E00]/10 text-[#FF3E00] border border-[#FF3E00]/30 flex items-center justify-center mx-auto shadow-inner">
+            <div className="w-16 h-16 rounded-xl bg-orange-50 dark:bg-[#FF3E00]/10 text-[#FF3E00] border border-orange-200 dark:border-[#FF3E00]/30 flex items-center justify-center mx-auto shadow-inner">
               <ShoppingBag className="w-8 h-8" />
             </div>
-            <h3 className="text-xl font-display font-black tracking-tight text-white uppercase">
+            <h3 className="text-xl font-display font-black tracking-tight text-zinc-900 dark:text-white uppercase">
               Shopping Research & Price Intelligence
             </h3>
-            <p className="text-xs text-zinc-400 font-mono leading-relaxed">
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 font-mono leading-relaxed">
               Search in English, Hindi, or Hinglish to inspect verified cross-store prices, review analysis, buyer sentiment, and instant decision recommendations across Amazon, Flipkart, Myntra, Meesho, and Ajio.
             </p>
           </div>
@@ -900,7 +900,7 @@ export default function App() {
 
       {/* Floating Compare Tray if items selected */}
       {compareProductIds.length > 0 && (
-        <div className="fixed bottom-4 right-4 z-40 bg-[#121212] text-white rounded-xl p-3.5 shadow-2xl border border-[#FF3E00] flex items-center gap-3 animate-in slide-in-from-bottom duration-300 font-mono">
+        <div className="fixed bottom-4 right-4 z-40 bg-white dark:bg-[#121212] text-zinc-900 dark:text-white rounded-xl p-3.5 shadow-2xl border-2 border-[#FF3E00] flex items-center gap-3 animate-in slide-in-from-bottom duration-300 font-mono">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
             <Scale className="w-4 h-4 text-[#FF3E00]" />
             <span>{compareProductIds.length} ITEMS SELECTED</span>
@@ -915,7 +915,7 @@ export default function App() {
           <button
             type="button"
             onClick={() => setCompareProductIds([])}
-            className="p-1 rounded-xs text-zinc-400 hover:text-white cursor-pointer"
+            className="p-1 rounded-xs text-zinc-400 hover:text-zinc-800 dark:hover:text-white cursor-pointer"
             title="Clear"
           >
             ✕
@@ -925,12 +925,12 @@ export default function App() {
 
       {/* Mobile Filter Slide-Over */}
       {isMobileFilterOpen && (
-        <div className="fixed inset-0 z-50 flex justify-end bg-black/80 backdrop-blur-sm">
-          <div className="w-80 h-full bg-[#0d0d0d] border-l border-[#262626] p-5 overflow-y-auto shadow-2xl flex flex-col justify-between font-mono">
+        <div className="fixed inset-0 z-50 flex justify-end bg-black/60 dark:bg-black/80 backdrop-blur-sm">
+          <div className="w-80 h-full bg-white dark:bg-[#0d0d0d] border-l border-zinc-200 dark:border-[#262626] p-5 overflow-y-auto shadow-2xl flex flex-col justify-between font-mono">
             <div>
-              <div className="flex items-center justify-between pb-4 border-b border-[#242424] mb-4">
-                <h3 className="font-bold text-sm uppercase tracking-wider text-white">FILTERS & REFINEMENTS</h3>
-                <button type="button" onClick={() => setIsMobileFilterOpen(false)} className="p-1 text-zinc-400 hover:text-white cursor-pointer">
+              <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-[#242424] mb-4">
+                <h3 className="font-bold text-sm uppercase tracking-wider text-zinc-900 dark:text-white">FILTERS & REFINEMENTS</h3>
+                <button type="button" onClick={() => setIsMobileFilterOpen(false)} className="p-1 text-zinc-400 hover:text-zinc-800 dark:hover:text-white cursor-pointer">
                   ✕
                 </button>
               </div>
@@ -1109,12 +1109,12 @@ export default function App() {
       )}
 
       {/* Footer */}
-      <footer className="mt-16 border-t border-[#242424] bg-[#090909] py-6 text-xs text-zinc-500 font-mono">
+      <footer className="mt-16 border-t border-zinc-200 dark:border-[#242424] bg-white dark:bg-[#090909] py-6 text-xs text-zinc-500 font-mono transition-colors">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <div className="flex items-center gap-2 justify-center">
-            <span className="font-bold text-white tracking-wider uppercase">PRICEPULSE</span>
+            <span className="font-bold text-zinc-900 dark:text-white tracking-wider uppercase">PRICEPULSE</span>
             <span>•</span>
-            <span className="text-zinc-400">INDEPENDENT MULTI-STORE SHOPPING RESEARCH ENGINE</span>
+            <span className="text-zinc-600 dark:text-zinc-400">INDEPENDENT MULTI-STORE SHOPPING RESEARCH ENGINE</span>
           </div>
           <div>
             <span className="text-[11px] text-zinc-500">{t.disclaimer}</span>
