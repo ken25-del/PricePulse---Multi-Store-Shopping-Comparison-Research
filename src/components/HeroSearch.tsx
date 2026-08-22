@@ -13,19 +13,11 @@ interface HeroSearchProps {
   onOpenSourceSelector: () => void;
   onOpenDiscovery: () => void;
   onOpenAddSource: () => void;
+  onOpenWelcomeTour?: () => void;
   recentSearches: string[];
   onSelectRecentSearch: (query: string) => void;
   initialQuery?: string;
 }
-
-const POPULAR_QUERIES = [
-  'Teej ke liye ₹2000 ke andar silk saree',
-  'Bhai ki shaadi ke liye Banarasi saree under 3000',
-  'Wireless noise cancelling headphones under ₹4000',
-  'Pure cotton kurta set with dupatta under ₹1200',
-  'Best laptop for programming under 60000',
-  'Running shoes with memory foam under ₹2500'
-];
 
 export const HeroSearch: React.FC<HeroSearchProps> = ({
   settings,
@@ -37,6 +29,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({
   onOpenSourceSelector,
   onOpenDiscovery,
   onOpenAddSource,
+  onOpenWelcomeTour,
   recentSearches,
   onSelectRecentSearch,
   initialQuery = ''
@@ -192,45 +185,42 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({
         </div>
       </div>
 
-      {/* Suggestion Chips & Recent Searches */}
-      <div className="mt-4 space-y-2">
-        {/* Popular Natural Language Searches */}
-        <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-[#FF3E00]" />
-            {t.popularSearches}:
-          </span>
-          {POPULAR_QUERIES.map((pq, idx) => (
-            <button
-              key={idx}
-              type="button"
-              onClick={() => handleChipClick(pq)}
-              className="text-xs px-2.5 py-1 rounded-md bg-[#141414] hover:bg-[#202020] hover:text-[#FF3E00] text-zinc-300 transition-colors border border-[#252525] text-left font-medium"
-            >
-              {pq}
-            </button>
-          ))}
-        </div>
+      {/* Recent Searches (if user has any) or Quick Guide Link */}
+      {(recentSearches.length > 0 || onOpenWelcomeTour) && (
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
+          {recentSearches.length > 0 ? (
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest">
+                {t.recentSearches}:
+              </span>
+              {recentSearches.slice(0, 4).map((rs, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => onSelectRecentSearch(rs)}
+                  className="text-xs px-2.5 py-0.5 rounded-md bg-[#1a1512] text-[#FF9575] hover:bg-[#281d17] border border-[#4d261a] transition-colors font-medium font-mono cursor-pointer"
+                >
+                  {rs}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div />
+          )}
 
-        {/* Recent Searches (if any) */}
-        {recentSearches.length > 0 && (
-          <div className="flex items-center gap-1.5 flex-wrap pt-1">
-            <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest">
-              {t.recentSearches}:
-            </span>
-            {recentSearches.slice(0, 5).map((rs, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => onSelectRecentSearch(rs)}
-                className="text-xs px-2.5 py-0.5 rounded-md bg-[#1a1512] text-[#FF9575] hover:bg-[#281d17] border border-[#4d261a] transition-colors font-medium font-mono"
-              >
-                {rs}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
+          {onOpenWelcomeTour && (
+            <button
+              id="hero-why-pricepulse-guide-btn"
+              type="button"
+              onClick={onOpenWelcomeTour}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#181818] hover:bg-[#222222] text-[#FF3E00] border border-[#333333] text-[11px] font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer ml-auto"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>{settings.language === 'hi' ? 'एक्सटेंशन से कैसे अलग है?' : 'Why Different from Extensions?'}</span>
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

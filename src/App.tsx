@@ -31,13 +31,16 @@ import {
   clearTrackedPrices,
   checkPriceDropsOnAppLoad,
   dismissPriceDropAlert,
-  updateTrackedPriceTarget
+  updateTrackedPriceTarget,
+  hasSeenWelcomeGuide,
+  setWelcomeGuideSeen
 } from './lib/storage';
 import { translations } from './lib/i18n';
 
 // Components
 import { Navbar } from './components/Navbar';
 import { HeroSearch } from './components/HeroSearch';
+import { WelcomeTourModal } from './components/WelcomeTourModal';
 import { SourceStatusLive } from './components/SourceStatusLive';
 import { IntentBadgeBar } from './components/IntentBadgeBar';
 import { FilterSidebar } from './components/FilterSidebar';
@@ -122,6 +125,7 @@ export default function App() {
 
   // Modals
   const [selectedProductForModal, setSelectedProductForModal] = useState<ProductGroup | null>(null);
+  const [isWelcomeTourOpen, setIsWelcomeTourOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isCompareOpen, setIsCompareOpen] = useState(false);
   const [isPriceWatchOpen, setIsPriceWatchOpen] = useState(false);
@@ -139,9 +143,15 @@ export default function App() {
 
   const t = translations[settings.language];
 
-  // Price Drop Check on App Load
+  // Welcome Guide and Price Drop Check on App Load
   useEffect(() => {
     try {
+      // Check if welcome guide should be presented
+      if (!hasSeenWelcomeGuide()) {
+        setIsWelcomeTourOpen(true);
+      }
+
+      // Check price drops
       const { allTracked, droppedAlerts } = checkPriceDropsOnAppLoad();
       setTrackedPrices(allTracked);
       if (droppedAlerts && droppedAlerts.length > 0) {
@@ -149,7 +159,7 @@ export default function App() {
         setShowPriceDropBanner(true);
       }
     } catch (err) {
-      console.error('Error checking price drops on app load:', err);
+      console.error('Error during initial app load setup:', err);
     }
   }, []);
 
@@ -542,6 +552,7 @@ export default function App() {
         onOpenWishlist={() => setIsWishlistOpen(true)}
         onOpenCompare={() => setIsCompareOpen(true)}
         onOpenPriceWatch={() => setIsPriceWatchOpen(true)}
+        onOpenWelcomeTour={() => setIsWelcomeTourOpen(true)}
         onOpenSettings={() => setIsSettingsOpen(true)}
         onToggleTheme={handleToggleTheme}
         onToggleLanguage={handleToggleLanguage}
@@ -627,6 +638,7 @@ export default function App() {
           onOpenSourceSelector={() => setIsSourceSelectorOpen(true)}
           onOpenDiscovery={() => setIsDiscoveryOpen(true)}
           onOpenAddSource={() => setIsAddSourceOpen(true)}
+          onOpenWelcomeTour={() => setIsWelcomeTourOpen(true)}
           recentSearches={recentSearches}
           onSelectRecentSearch={handlePerformSearch}
           initialQuery={currentQuery}
@@ -1076,6 +1088,23 @@ export default function App() {
           }}
           enabledSourceIds={selectedSourceIds}
           onClose={() => setIsDiscoveryOpen(false)}
+        />
+      )}
+
+      {/* Welcome & Differentiator Tour Modal */}
+      {isWelcomeTourOpen && (
+        <WelcomeTourModal
+          isOpen={isWelcomeTourOpen}
+          settings={settings}
+          onClose={() => setIsWelcomeTourOpen(false)}
+          onStartSearch={(query) => {
+            if (query) {
+              handlePerformSearch(query);
+            }
+          }}
+          onToggleDoNotShowAgain={(dontShow) => {
+            setWelcomeGuideSeen(dontShow);
+          }}
         />
       )}
 

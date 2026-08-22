@@ -12,6 +12,7 @@ interface NavbarProps {
   onOpenWishlist: () => void;
   onOpenCompare: () => void;
   onOpenPriceWatch?: () => void;
+  onOpenWelcomeTour?: () => void;
   onOpenSettings: () => void;
   onToggleTheme: () => void;
   onToggleLanguage: () => void;
@@ -27,6 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenWishlist,
   onOpenCompare,
   onOpenPriceWatch,
+  onOpenWelcomeTour,
   onOpenSettings,
   onToggleTheme,
   onToggleLanguage,
@@ -176,12 +178,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </button>
 
+          {/* Welcome Guide / Why Us Button */}
+          {onOpenWelcomeTour && (
+            <button
+              id="nav-welcome-tour-btn"
+              onClick={onOpenWelcomeTour}
+              title="Why PricePulse is better than extensions & Features Walkthrough"
+              className="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#FF3E00] hover:text-white bg-[#141414] hover:bg-[#FF3E00]/20 rounded-md transition-colors border border-[#FF3E00]/40 cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">{settings.language === 'hi' ? 'गाइड' : 'Why Us'}</span>
+            </button>
+          )}
+
           {/* Settings Button */}
           <button
             id="nav-settings-btn"
             onClick={onOpenSettings}
             title="Application & AI Settings"
-            className="p-2 text-zinc-300 hover:text-white bg-[#141414] hover:bg-[#202020] rounded-md transition-colors border border-[#2a2a2a]"
+            className="p-2 text-zinc-300 hover:text-white bg-[#141414] hover:bg-[#202020] rounded-md transition-colors border border-[#2a2a2a] cursor-pointer"
           >
             <Settings className="w-4 h-4" />
           </button>

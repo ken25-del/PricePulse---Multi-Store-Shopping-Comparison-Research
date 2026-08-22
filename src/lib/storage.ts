@@ -6,6 +6,7 @@ const RECENT_SEARCHES_KEY = 'pricepulse_recent_searches_v1';
 const SETTINGS_KEY = 'pricepulse_settings_v1';
 const CUSTOM_SOURCES_KEY = 'pricepulse_custom_sources_v1';
 const SAVED_COMPARISONS_KEY = 'pricepulse_saved_comparisons_v1';
+const WELCOME_SEEN_KEY = 'pricepulse_welcome_tour_seen_v1';
 const LAST_APP_LOAD_KEY = 'pricepulse_last_app_load_ts';
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -428,5 +429,27 @@ export function clearAllLocalData() {
   localStorage.removeItem(SETTINGS_KEY);
   localStorage.removeItem(CUSTOM_SOURCES_KEY);
   localStorage.removeItem(SAVED_COMPARISONS_KEY);
+  localStorage.removeItem(WELCOME_SEEN_KEY);
 }
+
+export function hasSeenWelcomeGuide(): boolean {
+  try {
+    return localStorage.getItem(WELCOME_SEEN_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+export function setWelcomeGuideSeen(seen: boolean = true) {
+  try {
+    if (seen) {
+      localStorage.setItem(WELCOME_SEEN_KEY, 'true');
+    } else {
+      localStorage.removeItem(WELCOME_SEEN_KEY);
+    }
+  } catch (err) {
+    console.error('Error saving welcome guide seen status:', err);
+  }
+}
+
 
