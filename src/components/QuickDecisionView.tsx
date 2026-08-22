@@ -1,5 +1,6 @@
 import React from 'react';
 import { ProductGroup } from '../types';
+import { getRealProductImageFallback } from '../lib/imageUtils';
 import { Award, TrendingDown, Star, Sparkles, ShoppingBag, X, Check, ArrowUpRight, ShieldCheck } from 'lucide-react';
 
 interface QuickDecisionViewProps {
@@ -125,7 +126,7 @@ export const QuickDecisionView: React.FC<QuickDecisionViewProps> = ({
                         referrerPolicy="no-referrer"
                         className="w-20 h-24 object-cover rounded-lg bg-[#0c0c0c] border border-[#2a2a2a] shrink-0"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&auto=format&fit=crop&q=80';
+                          (e.target as HTMLImageElement).src = getRealProductImageFallback(g.canonicalTitle, g.category);
                         }}
                       />
 

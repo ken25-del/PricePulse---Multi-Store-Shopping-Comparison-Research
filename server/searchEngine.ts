@@ -195,284 +195,311 @@ export const SPECIALTY_STORES: ShoppingSource[] = [
   }
 ];
 
+// Comprehensive category product photo library & dynamic query synthesizer
+const VERIFIED_CATEGORY_PHOTO_POOLS: Record<string, { images: string[]; basePrice: number; baseMrp: number; category: string; material: string }> = {
+  sneakers: {
+    images: [
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 2499,
+    baseMrp: 4999,
+    category: 'Footwear',
+    material: 'Leather & Suede'
+  },
+  running_shoes: {
+    images: [
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 2199,
+    baseMrp: 4499,
+    category: 'Footwear',
+    material: 'Engineered Breathable Mesh'
+  },
+  saree: {
+    images: [
+      'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1609357605129-26f69add5d6e?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 2899,
+    baseMrp: 6499,
+    category: 'Saree',
+    material: 'Pure Woven Silk'
+  },
+  kurta: {
+    images: [
+      'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 1299,
+    baseMrp: 2999,
+    category: 'Ethnic Wear',
+    material: '100% Pure Cotton'
+  },
+  shirt: {
+    images: [
+      'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 999,
+    baseMrp: 2299,
+    category: 'Apparel',
+    material: 'Premium Cotton'
+  },
+  jeans: {
+    images: [
+      'https://images.unsplash.com/photo-1542272604-780c96856592?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 1699,
+    baseMrp: 3599,
+    category: 'Apparel',
+    material: 'Stretch Denim'
+  },
+  earbuds: {
+    images: [
+      'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 1999,
+    baseMrp: 4499,
+    category: 'Electronics',
+    material: 'Polycarbonate'
+  },
+  headphones: {
+    images: [
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 3499,
+    baseMrp: 7999,
+    category: 'Electronics',
+    material: 'Matte Polymer'
+  },
+  smartwatch: {
+    images: [
+      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 2499,
+    baseMrp: 5999,
+    category: 'Electronics',
+    material: 'Metallic Alloy & Silicone'
+  },
+  smartphone: {
+    images: [
+      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 16999,
+    baseMrp: 21999,
+    category: 'Mobiles',
+    material: 'Gorilla Glass & Aluminum'
+  },
+  laptop: {
+    images: [
+      'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 42990,
+    baseMrp: 54990,
+    category: 'Computers',
+    material: 'Anodized Aluminum'
+  },
+  kitchen: {
+    images: [
+      'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&auto=format&fit=crop&q=80'
+    ],
+    basePrice: 2299,
+    baseMrp: 4499,
+    category: 'Home & Kitchen',
+    material: 'Stainless Steel & Non-Stick'
+  }
+};
+
+export function getResolvedCategoryPool(query: string, category?: string) {
+  const q = `${query} ${category || ''}`.toLowerCase();
+
+  if (q.includes('puma') || q.includes('nike') || q.includes('adidas') || q.includes('sneaker') || q.includes('canvas')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.sneakers;
+  }
+  if (q.includes('shoe') || q.includes('running') || q.includes('trainer') || q.includes('boot') || q.includes('footwear')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.running_shoes;
+  }
+  if (q.includes('saree') || q.includes('sari') || q.includes('kanjivaram') || q.includes('banarasi') || q.includes('paithani') || q.includes('organza')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.saree;
+  }
+  if (q.includes('kurta') || q.includes('kurti') || q.includes('ethnic') || q.includes('lehenga')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.kurta;
+  }
+  if (q.includes('shirt') || q.includes('t-shirt') || q.includes('tshirt') || q.includes('polo')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.shirt;
+  }
+  if (q.includes('jean') || q.includes('denim') || q.includes('trouser') || q.includes('pant')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.jeans;
+  }
+  if (q.includes('earbud') || q.includes('airpod') || q.includes('tws') || q.includes('airdopes')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.earbuds;
+  }
+  if (q.includes('headphone') || q.includes('headset') || q.includes('sony wh') || q.includes('audio')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.headphones;
+  }
+  if (q.includes('watch') || q.includes('smartwatch') || q.includes('band')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.smartwatch;
+  }
+  if (q.includes('phone') || q.includes('mobile') || q.includes('iphone') || q.includes('samsung') || q.includes('galaxy') || q.includes('redmi') || q.includes('pixel') || q.includes('oneplus')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.smartphone;
+  }
+  if (q.includes('laptop') || q.includes('macbook') || q.includes('computer') || q.includes('notebook')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.laptop;
+  }
+  if (q.includes('fryer') || q.includes('cooker') || q.includes('kettle') || q.includes('bottle') || q.includes('pan') || q.includes('kitchen') || q.includes('mixer')) {
+    return VERIFIED_CATEGORY_PHOTO_POOLS.kitchen;
+  }
+
+  return VERIFIED_CATEGORY_PHOTO_POOLS.saree;
+}
+
 // Fallback multi-store catalog generator when API quota is limited (429) or offline
 function generateCatalogFallbackProducts(
   query: string,
   intent: SearchIntent,
   activeSources: ShoppingSource[]
 ): NormalizedProduct[] {
-  const q = query.toLowerCase();
+  const q = query.trim();
+  const qLower = q.toLowerCase();
   const cat = (intent.category || '').toLowerCase();
-  const mat = (intent.material || '').toLowerCase();
-  const col = (intent.color || '').toLowerCase();
+  const col = intent.color || '';
   const budget = intent.maxBudget || 0;
 
-  interface BaseProductTemplate {
-    canonicalBase: string;
-    brand: string;
-    category: string;
-    material: string;
-    color: string;
-    basePrice: number;
-    baseMrp: number;
-    titleTemplate: string;
-    image: string;
-    gallery: string[];
-    description: string;
-    highlights: string[];
-    excerpts: { text: string; sentiment: 'positive' | 'neutral' | 'negative' }[];
-  }
+  const pool = getResolvedCategoryPool(q, intent.category);
 
-  // Curated templates across major shopping categories
-  const templates: BaseProductTemplate[] = [
+  // Extract brand from query if mentioned
+  const knownBrands = ['Puma', 'Nike', 'Adidas', 'Reebok', 'Skechers', 'Bata', 'Woodland', 'Apple', 'Samsung', 'OnePlus', 'Sony', 'boAt', 'Noise', 'Fire-Boltt', 'Levi\'s', 'Allen Solly', 'Peter England', 'Fabindia', 'Kanjivaram Heritage', 'Varkha Silks', 'Siril', 'Prestige', 'Hawkins', 'Milton', 'Philips'];
+  const matchedBrand = knownBrands.find(b => qLower.includes(b.toLowerCase())) || intent.brand || (pool.category === 'Footwear' ? 'Puma' : pool.category === 'Saree' ? 'Kanjivaram Heritage' : 'Authentic Brand');
+
+  // Generate 3 to 4 distinct variations of the queried product
+  const baseTitle = q.length > 3 ? q : `${matchedBrand} ${pool.category}`;
+
+  const variations = [
     {
-      canonicalBase: 'kanjivaram-pure-silk-zari-saree',
-      brand: 'Kanjivaram Heritage',
-      category: 'Saree',
-      material: 'Pure Silk',
-      color: col || 'Red',
-      basePrice: budget ? Math.min(budget * 0.85, 3499) : 2899,
-      baseMrp: budget ? Math.min(budget * 1.5, 6999) : 5999,
-      titleTemplate: 'Pure Kanjivaram Woven Silk Saree with Rich Golden Zari Pallu & Blouse Piece',
-      image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=700&auto=format&fit=crop&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=700&auto=format&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=700&auto=format&fit=crop&q=80'
-      ],
-      description: 'Handcrafted Kanjivaram style woven silk saree featuring dense floral zari motifs, broad temple border, and unstitched matching blouse.',
-      highlights: ['Authentic zari weave density', 'Heavy festive drape', 'Includes unstitched blouse piece'],
-      excerpts: [
-        { text: 'Fabric shine and zari work look gorgeous in person, ideal for wedding functions.', sentiment: 'positive' },
-        { text: 'Slightly heavy fabric as expected from woven silk, very rich look.', sentiment: 'positive' }
-      ]
+      titleSuffix: col ? ` - ${col}` : ' (Classic Edition)',
+      priceMult: 1.0,
+      imageIdx: 0,
+      highlights: ['High durability & premium finish', 'True to size & comfortable fit', 'Official manufacturer warranty'],
+      description: `${matchedBrand} ${pool.category} engineered with genuine ${pool.material}, providing high performance, comfort, and premium design.`
     },
     {
-      canonicalBase: 'banarasi-silk-festive-saree',
-      brand: 'Varkha Silks',
-      category: 'Saree',
-      material: 'Banarasi Silk',
-      color: col || 'Green',
-      basePrice: budget ? Math.min(budget * 0.75, 2199) : 1849,
-      baseMrp: budget ? Math.min(budget * 1.4, 4599) : 4299,
-      titleTemplate: 'Traditional Banarasi Woven Art Silk Saree with Meenakari Floral Borders',
-      image: 'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=700&auto=format&fit=crop&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=700&auto=format&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=700&auto=format&fit=crop&q=80'
-      ],
-      description: 'Lustrous Banarasi art silk saree highlighted with intricate zari brocade, contrasting border, and elegant pallu design.',
-      highlights: ['Lightweight easy-to-pleat texture', 'Vibrant festive color tone', 'Good value for budget wedding wear'],
-      excerpts: [
-        { text: 'Color matches the photos exactly. Drapes effortlessly and looks expensive.', sentiment: 'positive' },
-        { text: 'Pleats sit comfortably, dry clean recommended for longevity.', sentiment: 'neutral' }
-      ]
+      titleSuffix: ' (Pro Series / Upgraded Edition)',
+      priceMult: 1.2,
+      imageIdx: 1,
+      highlights: ['Enhanced cushioning & premium materials', 'Bestseller rating across customer reviews', 'Quick dispatch & easy replacement'],
+      description: `Upgraded ${matchedBrand} edition with reinforced ${pool.material} construction, lightweight ergonomics, and superior build quality.`
     },
     {
-      canonicalBase: 'paithani-silk-saree-peacock-pallu',
-      brand: 'Paithani Craft',
-      category: 'Saree',
-      material: 'Paithani Silk',
-      color: col || 'Yellow',
-      basePrice: budget ? Math.min(budget * 0.9, 3999) : 3299,
-      baseMrp: budget ? Math.min(budget * 1.6, 7999) : 7499,
-      titleTemplate: 'Handloom Paithani Silk Saree with Signature Peacock Motif Zari Pallu',
-      image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=700&auto=format&fit=crop&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=700&auto=format&fit=crop&q=80'
-      ],
-      description: 'Authentic Maharashtrian Paithani style woven saree with signature mor-bangadi (peacock) motifs on the pallu and contrasting borders.',
-      highlights: ['Signature heritage peacock motifs', 'Dense dual-tone border weave', 'Premium festive look'],
-      excerpts: [
-        { text: 'The peacock pallu detail is breathtaking, got so many compliments!', sentiment: 'positive' },
-        { text: 'Border stiffness is firm initially, softens after first gentle dry clean.', sentiment: 'neutral' }
-      ]
+      titleSuffix: ' (Comfort Daily Edition)',
+      priceMult: 0.85,
+      imageIdx: 2,
+      highlights: ['Lightweight all-day comfort', 'Exceptional value-for-money', 'Positive buyer feedback on longevity'],
+      description: `Lightweight and versatile ${matchedBrand} model designed for everyday use with breathable ${pool.material}.`
     },
     {
-      canonicalBase: 'organza-floral-embroidery-saree',
-      brand: 'Anni Designer',
-      category: 'Saree',
-      material: 'Organza',
-      color: col || 'Pink',
-      basePrice: budget ? Math.min(budget * 0.7, 1499) : 1299,
-      baseMrp: budget ? Math.min(budget * 1.3, 3499) : 2999,
-      titleTemplate: 'Translucent Organza Silk Saree with Delicate Floral Thread Embroidery & Cutwork',
-      image: 'https://images.unsplash.com/photo-1609357605129-26f69add5d6e?w=700&auto=format&fit=crop&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1609357605129-26f69add5d6e?w=700&auto=format&fit=crop&q=80'
-      ],
-      description: 'Modern sheer organza saree with delicate pastel floral embroidery, scalloped border edges, and satin blouse fabric.',
-      highlights: ['Ultra lightweight breathable feel', 'Trendy modern pastel aesthetics', 'Scalloped cutwork border'],
-      excerpts: [
-        { text: 'Very modern and chic for farewell or daytime parties.', sentiment: 'positive' },
-        { text: 'Fabric is semi-sheer so wear an appropriate petticoat.', sentiment: 'neutral' }
-      ]
-    },
-    {
-      canonicalBase: 'tussar-chanderi-cotton-silk-saree',
-      brand: 'FabArtisan Handloom',
-      category: 'Saree',
-      material: 'Chanderi Cotton Silk',
-      color: col || 'Beige',
-      basePrice: budget ? Math.min(budget * 0.65, 1299) : 1149,
-      baseMrp: budget ? Math.min(budget * 1.3, 2799) : 2499,
-      titleTemplate: 'Chanderi Cotton Silk Handloom Saree with Geometric Zari Border',
-      image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=700&auto=format&fit=crop&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=700&auto=format&fit=crop&q=80'
-      ],
-      description: 'Comfortable all-day handloom Chanderi blend with subtle gold zari lining, suitable for formal office wear and pooja occasions.',
-      highlights: ['Breathable cotton-silk blend', 'Subtle elegant zari accents', 'All-day comfort'],
-      excerpts: [
-        { text: 'Very soft on skin, perfect for long working hours or family gatherings.', sentiment: 'positive' }
-      ]
-    },
-    {
-      canonicalBase: 'wireless-anc-earbuds-bluetooth',
-      brand: 'AcousticPro',
-      category: 'Electronics',
-      material: 'Polycarbonate',
-      color: col || 'Black',
-      basePrice: budget ? Math.min(budget * 0.8, 2499) : 1999,
-      baseMrp: budget ? Math.min(budget * 1.5, 4999) : 4499,
-      titleTemplate: 'True Wireless Earbuds with Active Noise Cancellation & 40H Playtime',
-      image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=700&auto=format&fit=crop&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=700&auto=format&fit=crop&q=80'
-      ],
-      description: 'TWS earbuds featuring 32dB active noise cancellation, quad mics with ENx technology, low latency gaming mode, and Type-C fast charge.',
-      highlights: ['Punchy bass with 13mm drivers', 'Strong call clarity in noisy environments', 'IPX5 sweat resistance'],
-      excerpts: [
-        { text: 'Battery easily lasts 3 days with heavy use. ANC is surprisingly good for the price.', sentiment: 'positive' },
-        { text: 'Touch controls are responsive, fits snugly during jogging.', sentiment: 'positive' }
-      ]
-    },
-    {
-      canonicalBase: 'smartwatch-amoled-calling',
-      brand: 'VigorPulse',
-      category: 'Electronics',
-      material: 'Metallic Alloy',
-      color: col || 'Black',
-      basePrice: budget ? Math.min(budget * 0.85, 2999) : 2299,
-      baseMrp: budget ? Math.min(budget * 1.6, 5999) : 5499,
-      titleTemplate: '1.43" AMOLED Bluetooth Calling Smartwatch with Always-On Display & Health Tracking',
-      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700&auto=format&fit=crop&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700&auto=format&fit=crop&q=80'
-      ],
-      description: 'Premium smartwatch with high resolution AMOLED display, functional crown, 120+ sports modes, SpO2 & 24/7 heart rate monitoring.',
-      highlights: ['Crisp 466x466 AMOLED screen', 'Clear speaker for phone calls', 'Premium metallic bezel finish'],
-      excerpts: [
-        { text: 'Screen brightness in direct sunlight is top notch. Calling is crystal clear.', sentiment: 'positive' }
-      ]
-    },
-    {
-      canonicalBase: 'breathable-mesh-running-shoes',
-      brand: 'AeroStep',
-      category: 'Footwear',
-      material: 'Breathable Mesh',
-      color: col || 'Grey',
-      basePrice: budget ? Math.min(budget * 0.75, 1799) : 1499,
-      baseMrp: budget ? Math.min(budget * 1.4, 3499) : 2999,
-      titleTemplate: 'Ultra-Lightweight Breathable Mesh Running Shoes with Memory Foam Cushioning',
-      image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&auto=format&fit=crop&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&auto=format&fit=crop&q=80'
-      ],
-      description: 'Engineered mesh sneakers with shock-absorbing EVA sole, memory foam insole, and anti-skid rubber grip for daily training and running.',
-      highlights: ['Featherlight weight under 250g', 'Plush memory foam comfort', 'Great arch support'],
-      excerpts: [
-        { text: 'Extremely comfortable for daily 5km walking and gym workouts.', sentiment: 'positive' }
-      ]
+      titleSuffix: ' (Special Edition / Festive Colorway)',
+      priceMult: 1.1,
+      imageIdx: 3,
+      highlights: ['Exclusive colorway & premium accents', 'High customer satisfaction rate', 'Verified brand authenticity'],
+      description: `Special edition ${matchedBrand} featuring unique aesthetics, premium stitching, and certified authentic retail packaging.`
     }
   ];
 
-  // Pick suitable template based on search tokens
-  let matchedTemplates = templates.filter(t => {
-    const combined = `${t.category} ${t.material} ${t.color} ${t.titleTemplate}`.toLowerCase();
-    if (q.includes('saree') || q.includes('sari') || cat.includes('saree')) {
-      return t.category === 'Saree';
-    }
-    if (q.includes('headphone') || q.includes('earbud') || q.includes('watch') || q.includes('electronic') || cat.includes('electronic')) {
-      return t.category === 'Electronics';
-    }
-    if (q.includes('shoe') || q.includes('footwear') || q.includes('sneaker') || cat.includes('footwear')) {
-      return t.category === 'Footwear';
-    }
-    return combined.includes(q) || (intent.category && t.category.toLowerCase().includes(intent.category.toLowerCase()));
-  });
-
-  if (matchedTemplates.length === 0) {
-    matchedTemplates = templates.slice(0, 4);
-  }
-
-  // Create a customized template matching query if none specifically aligned
-  if (!matchedTemplates.some(t => t.category === 'Saree') && (q.includes('saree') || q.includes('silk'))) {
-    matchedTemplates = templates.filter(t => t.category === 'Saree');
-  }
-
   const generatedProducts: NormalizedProduct[] = [];
   const storeModifiers: Record<string, { priceFactor: number; discountBoost: number; policy: string; delivery: string }> = {
-    amazon: { priceFactor: 1.0, discountBoost: 0, policy: '7 Days Return Available', delivery: 'Free Prime One-Day Delivery' },
-    flipkart: { priceFactor: 0.94, discountBoost: 5, policy: '10 Days Replacement / Refund', delivery: 'Free Delivery by Tomorrow' },
-    myntra: { priceFactor: 1.06, discountBoost: -3, policy: '14 Days Easy Return & Exchange', delivery: 'Express 2-Day Delivery' },
-    meesho: { priceFactor: 0.82, discountBoost: 12, policy: '7 Days Return Available', delivery: 'Free Standard Delivery' },
-    ajio: { priceFactor: 0.98, discountBoost: 2, policy: '15 Days Hassle-Free Returns', delivery: 'Standard 3-Day Delivery' },
+    amazon: { priceFactor: 1.0, discountBoost: 0, policy: '7 Days Return Available', delivery: 'Free Prime Delivery' },
+    flipkart: { priceFactor: 0.93, discountBoost: 6, policy: '10 Days Replacement / Refund', delivery: 'Free Delivery by Tomorrow' },
+    myntra: { priceFactor: 1.05, discountBoost: -3, policy: '14 Days Easy Return & Exchange', delivery: 'Express 2-Day Delivery' },
+    meesho: { priceFactor: 0.82, discountBoost: 14, policy: '7 Days Return Available', delivery: 'Free Standard Delivery' },
+    ajio: { priceFactor: 0.97, discountBoost: 3, policy: '15 Days Hassle-Free Returns', delivery: 'Standard 3-Day Delivery' },
     nykaa: { priceFactor: 1.08, discountBoost: -4, policy: '15 Days Returnable', delivery: 'Curated Packaging Delivery' },
-    tatacliq: { priceFactor: 1.02, discountBoost: 0, policy: '7 Days Brand Warranty Return', delivery: 'Tata Verified Delivery' },
+    tatacliq: { priceFactor: 1.01, discountBoost: 1, policy: '7 Days Brand Warranty Return', delivery: 'Tata Verified Delivery' },
     nalli: { priceFactor: 1.15, discountBoost: -8, policy: 'Authenticity Certificate & Exchange', delivery: 'Heritage Silk Safe Dispatch' },
     karagiri: { priceFactor: 0.96, discountBoost: 4, policy: '7 Days Return Policy', delivery: 'Direct Artisan Delivery' },
     craftsvilla: { priceFactor: 0.88, discountBoost: 8, policy: '7 Days Return', delivery: 'Standard Surface Shipping' },
     fabindia: { priceFactor: 1.12, discountBoost: -6, policy: '15 Days Store & Online Exchange', delivery: 'Eco-Friendly Packaged Delivery' }
   };
 
-  matchedTemplates.forEach((template, tIdx) => {
-    // Determine how many stores list this product (2 to 5 stores)
-    const participatingStores = activeSources.slice(0, Math.min(activeSources.length, 4 + (tIdx % 2)));
+  variations.forEach((variation, vIdx) => {
+    const rawTargetBase = budget ? Math.min(budget * 0.85, pool.basePrice) : pool.basePrice;
+    const basePrice = Math.round(rawTargetBase * variation.priceMult);
+    const baseMrp = Math.round(basePrice * 1.5);
+    const selectedImage = pool.images[variation.imageIdx % pool.images.length];
+
+    // Distribute across 3 to 5 active stores
+    const participatingStores = activeSources.slice(0, Math.min(activeSources.length, 3 + (vIdx % 3)));
 
     participatingStores.forEach((store, sIdx) => {
-      const mod = storeModifiers[store.id] || { priceFactor: 1.0 + (sIdx * 0.04), discountBoost: 0, policy: '7 Days Return', delivery: 'Standard Delivery' };
+      const mod = storeModifiers[store.id] || { priceFactor: 1.0 + (sIdx * 0.05), discountBoost: 0, policy: '7 Days Return', delivery: 'Standard Delivery' };
       
-      const rawCalculatedPrice = Math.round(template.basePrice * mod.priceFactor);
-      // Round to nearest 9 or 49 for realistic pricing
-      const finalPrice = Math.max(299, Math.round(rawCalculatedPrice / 50) * 50 - 1);
-      const mrp = Math.round(Math.max(finalPrice * 1.35, template.baseMrp));
-      const discountPercent = Math.max(15, Math.min(75, Math.round(((mrp - finalPrice) / mrp) * 100) + mod.discountBoost));
+      const rawCalculatedPrice = Math.round(basePrice * mod.priceFactor);
+      const finalPrice = Math.max(199, Math.round(rawCalculatedPrice / 50) * 50 - 1);
+      const mrp = Math.round(Math.max(finalPrice * 1.35, baseMrp));
+      const discountPercent = Math.max(12, Math.min(75, Math.round(((mrp - finalPrice) / mrp) * 100) + mod.discountBoost));
 
-      const rating = Number((4.0 + (Math.sin(tIdx * 3 + sIdx) * 0.45) + (store.id === 'amazon' ? 0.2 : 0)).toFixed(1));
-      const reviewCount = Math.max(25, Math.round(450 * (1 + Math.cos(tIdx + sIdx)) + (sIdx * 80)));
+      const rating = Number((4.1 + (Math.sin(vIdx * 2 + sIdx) * 0.4) + (store.id === 'amazon' ? 0.2 : 0)).toFixed(1));
+      const reviewCount = Math.max(30, Math.round(350 * (1 + Math.cos(vIdx + sIdx)) + (sIdx * 90)));
 
-      const title = `${template.brand} ${template.titleTemplate}${col ? ` - ${col}` : ''}`;
+      // Construct realistic title matching user query
+      let title = baseTitle;
+      if (!title.toLowerCase().includes(matchedBrand.toLowerCase())) {
+        title = `${matchedBrand} ${title}`;
+      }
+      if (vIdx > 0 && !title.includes(variation.titleSuffix)) {
+        title = `${title}${variation.titleSuffix}`;
+      }
+
       const productUrl = buildExactStoreUrl(store.id, store.domain, title);
 
       generatedProducts.push({
-        id: `prod-${store.id}-${tIdx}-${Date.now()}`,
-        canonicalId: `canon-${template.canonicalBase}`,
+        id: `prod-${store.id}-${vIdx}-${Date.now()}`,
+        canonicalId: `canon-${matchedBrand.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${vIdx}`,
         title,
         store: store.name,
         storeId: store.id,
         storeLogo: store.logo,
         productUrl,
-        brand: template.brand,
-        seller: `${store.name} Verified Merchant`,
-        primaryImage: template.image,
-        galleryImages: template.gallery,
-        description: template.description,
-        category: template.category,
-        material: template.material,
-        color: template.color,
+        brand: matchedBrand,
+        seller: `${store.name} Certified Merchant`,
+        primaryImage: selectedImage,
+        galleryImages: pool.images.slice(0, 3),
+        description: variation.description,
+        category: pool.category,
+        material: pool.material,
+        color: col || (sIdx % 2 === 0 ? 'Black / White' : 'Multi-color'),
         price: finalPrice,
         mrp,
         discountPercent,
         currency: 'INR',
         rating: Math.min(5.0, Math.max(3.5, rating)),
         reviewCount,
-        reviewHighlights: template.highlights,
-        reviewExcerpts: template.excerpts.map(e => ({ ...e, store: store.name })),
+        reviewHighlights: variation.highlights,
+        reviewExcerpts: [
+          { text: `Great quality from ${matchedBrand}, fitting and finish are top-tier.`, sentiment: 'positive', store: store.name },
+          { text: `Delivered quickly in original packaging. True value for money.`, sentiment: 'positive', store: store.name }
+        ],
         returnPolicy: mod.policy,
         deliveryInfo: mod.delivery,
         availability: 'in_stock',
         timestamp: new Date().toISOString(),
-        matchConfidence: Number((0.92 + (0.05 * (sIdx % 2))).toFixed(2))
+        matchConfidence: Number((0.93 + (0.04 * (sIdx % 2))).toFixed(2))
       });
     });
   });
@@ -684,10 +711,11 @@ Return 12 to 24 product items total, ensuring that for the main searched items, 
       const mrp = Number(item.mrp) || Math.round(price * 1.35);
       const discountPercent = item.discountPercent || Math.round(((mrp - price) / mrp) * 100);
 
-      // Ensure high quality image fallback if missing
+      // Ensure category-matched high quality image if missing or placeholder
       let primaryImage = item.primaryImage;
-      if (!primaryImage || !primaryImage.startsWith('http')) {
-        primaryImage = 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&auto=format&fit=crop&q=80';
+      const catPool = getResolvedCategoryPool(item.title || query, item.category || intent.category);
+      if (!primaryImage || !primaryImage.startsWith('http') || primaryImage.includes('placeholder') || primaryImage.includes('example.com')) {
+        primaryImage = catPool.images[index % catPool.images.length];
       }
 
       // Direct store URL check

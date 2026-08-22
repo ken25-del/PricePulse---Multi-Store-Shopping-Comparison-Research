@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ProductGroup, AppSettings } from '../types';
+import { ProductGroup, AppSettings, NormalizedProduct } from '../types';
 import { translations } from '../lib/i18n';
+import { getRealProductImageFallback } from '../lib/imageUtils';
 import { 
   X, 
   Heart, 
@@ -18,7 +19,9 @@ import {
   ThumbsDown,
   Award,
   TrendingDown,
-  Store
+  Store,
+  Bell,
+  BellRing
 } from 'lucide-react';
 
 interface ProductDetailModalProps {
@@ -26,9 +29,12 @@ interface ProductDetailModalProps {
   settings: AppSettings;
   isWishlisted: boolean;
   isSelectedForCompare: boolean;
+  isPriceTracked?: boolean;
   onToggleWishlist: () => void;
   onToggleCompare: () => void;
+  onTogglePriceTrack?: (listing?: NormalizedProduct) => void;
   onClose: () => void;
+  isListingTracked?: (storeId: string) => boolean;
 }
 
 export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
@@ -36,9 +42,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   settings,
   isWishlisted,
   isSelectedForCompare,
+  isPriceTracked = false,
   onToggleWishlist,
   onToggleCompare,
-  onClose
+  onTogglePriceTrack,
+  onClose,
+  isListingTracked
 }) => {
   if (!productGroup) return null;
 
@@ -71,6 +80,29 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => onTogglePriceTrack && onTogglePriceTrack()}
+              title={isPriceTracked ? 'Price Tracking Active (Alerts Enabled)' : 'Track Price (Get Alert on Drops)'}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-md border text-xs font-mono font-bold transition-colors cursor-pointer ${
+                isPriceTracked
+                  ? 'bg-amber-400 text-black border-amber-400 shadow-md ring-1 ring-amber-400/50'
+                  : 'hover:bg-[#1a1a1a] border-[#303030] text-zinc-300 hover:text-amber-400'
+              }`}
+            >
+              {isPriceTracked ? (
+                <>
+                  <BellRing className="w-4 h-4 animate-bounce" />
+                  <span className="hidden sm:inline uppercase text-[10px] font-black">Tracking Active</span>
+                </>
+              ) : (
+                <>
+                  <Bell className="w-4 h-4" />
+                  <span className="hidden sm:inline uppercase text-[10px]">Track Price</span>
+                </>
+              )}
+            </button>
+
             <button
               type="button"
               onClick={onToggleWishlist}
@@ -119,6 +151,9 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   alt={productGroup.canonicalTitle}
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = getRealProductImageFallback(productGroup.canonicalTitle, productGroup.category);
+                  }}
                 />
               </div>
 
@@ -378,21 +413,48 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                           </div>
                         </td>
 
-                        {/* Action */}
+                        {/* Action: Track Price + Direct Buy */}
                         <td className="p-3.5 text-right">
-                          <a
-                            href={item.productUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-mono font-black uppercase tracking-wider transition-transform active:scale-95 shadow-sm cursor-pointer ${
-                              isLowest
-                                ? 'bg-emerald-500 hover:bg-emerald-400 text-black'
-                                : 'bg-[#262626] hover:bg-[#363636] text-white border border-[#3a3a3a]'
-                            }`}
-                          >
-                            <span>Buy on {item.store}</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                          </a>
+                          <div className="flex items-center justify-end gap-2">
+                            {onTogglePriceTrack && (
+                              <button
+                                type="button"
+                                onClick={() => onTogglePriceTrack(item)}
+                                title={isListingTracked && isListingTracked(item.storeId) ? `Price tracking enabled for ${item.store}` : `Track price on ${item.store}`}
+                                className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs font-mono font-bold transition-all cursor-pointer border ${
+                                  isListingTracked && isListingTracked(item.storeId)
+                                    ? 'bg-amber-400 text-black border-amber-400 shadow-sm'
+                                    : 'bg-[#1e1e1e] hover:bg-[#2a2a2a] text-zinc-300 hover:text-amber-400 border-[#333333]'
+                                }`}
+                              >
+                                {isListingTracked && isListingTracked(item.storeId) ? (
+                                  <>
+                                    <BellRing className="w-3.5 h-3.5 animate-pulse text-black" />
+                                    <span className="hidden lg:inline text-[10px] font-black uppercase">Tracked</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Bell className="w-3.5 h-3.5" />
+                                    <span className="hidden lg:inline text-[10px] uppercase">Track</span>
+                                  </>
+                                )}
+                              </button>
+                            )}
+
+                            <a
+                              href={item.productUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-mono font-black uppercase tracking-wider transition-transform active:scale-95 shadow-sm cursor-pointer ${
+                                isLowest
+                                  ? 'bg-emerald-500 hover:bg-emerald-400 text-black'
+                                  : 'bg-[#262626] hover:bg-[#363636] text-white border border-[#3a3a3a]'
+                              }`}
+                            >
+                              <span>Buy on {item.store}</span>
+                              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                            </a>
+                          </div>
                         </td>
                       </tr>
                     );

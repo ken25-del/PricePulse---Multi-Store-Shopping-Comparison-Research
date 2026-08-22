@@ -247,6 +247,29 @@ export interface SearchResponse {
   searchedAt: string;
 }
 
+export interface TrackedPriceItem {
+  id: string;
+  productId: string;
+  canonicalTitle: string;
+  store: string;
+  storeId: string;
+  productUrl: string;
+  primaryImage: string;
+  category?: string;
+  initialPrice: number;
+  currentPrice: number;
+  lowestPriceEver: number;
+  currency: string;
+  trackedAt: string;
+  lastCheckedAt: string;
+  priceHistory: { price: number; timestamp: string; note?: string }[];
+  priceDropDetected?: boolean;
+  priceDropAmount?: number;
+  priceDropPercent?: number;
+  targetPriceAlert?: number;
+  notified?: boolean;
+}
+
 export interface WebsiteAnalysisResult {
   url: string;
   domain: string;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ProductGroup } from '../types';
+import { ProductGroup, NormalizedProduct } from '../types';
 import { translations } from '../lib/i18n';
+import { getRealProductImageFallback } from '../lib/imageUtils';
 import { 
   Heart, 
   Scale, 
@@ -16,7 +17,9 @@ import {
   ChevronUp, 
   ThumbsUp, 
   ThumbsDown,
-  Store
+  Store,
+  Bell,
+  BellRing
 } from 'lucide-react';
 
 interface ProductCardProps {
@@ -24,9 +27,12 @@ interface ProductCardProps {
   language: 'en' | 'hi';
   isWishlisted: boolean;
   isSelectedForCompare: boolean;
+  isPriceTracked?: boolean;
   onToggleWishlist: () => void;
   onToggleCompare: () => void;
+  onTogglePriceTrack?: (listing?: NormalizedProduct) => void;
   onViewDetails: () => void;
+  isListingTracked?: (storeId: string) => boolean;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -34,9 +40,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   language,
   isWishlisted,
   isSelectedForCompare,
+  isPriceTracked = false,
   onToggleWishlist,
   onToggleCompare,
-  onViewDetails
+  onTogglePriceTrack,
+  onViewDetails,
+  isListingTracked
 }) => {
   const t = translations[language];
   const listings = productGroup.listings;
@@ -85,7 +94,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               loading="lazy"
               onError={(e) => {
-                (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&auto=format&fit=crop&q=80';
+                (e.target as HTMLImageElement).src = getRealProductImageFallback(productGroup.canonicalTitle, productGroup.category);
               }}
             />
 
@@ -120,6 +129,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 }`}
               >
                 <Scale className="w-3.5 h-3.5" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => onTogglePriceTrack && onTogglePriceTrack()}
+                title={isPriceTracked ? 'Tracking Price (Alerts Enabled)' : 'Track Price (Get Price Drop Alerts)'}
+                className={`p-1.5 rounded-md backdrop-blur-md transition-colors border cursor-pointer ${
+                  isPriceTracked
+                    ? 'bg-amber-400 text-black border-amber-400 shadow-md ring-1 ring-amber-400/50'
+                    : 'bg-black/80 text-zinc-300 hover:text-amber-400 border-[#333333]'
+                }`}
+              >
+                {isPriceTracked ? (
+                  <BellRing className="w-3.5 h-3.5 animate-bounce" />
+                ) : (
+                  <Bell className="w-3.5 h-3.5" />
+                )}
               </button>
             </div>
           </div>
@@ -356,42 +382,68 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                     )}
                   </div>
 
-                  {/* Right: Exact Price + Direct Store Link */}
-                  <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0">
-                    <div className="text-left sm:text-right font-mono-num">
-                      <div className="flex items-baseline gap-1.5">
-                        <span className={`font-black ${isLowest ? 'text-emerald-400 text-sm' : 'text-zinc-100 text-xs sm:text-sm'}`}>
-                          ₹{item.price.toLocaleString('en-IN')}
-                        </span>
-                        {item.mrp && item.mrp > item.price && (
-                          <span className="text-[10px] text-zinc-500 line-through">
-                            ₹{item.mrp.toLocaleString('en-IN')}
+                    {/* Right: Exact Price + Track Price Button + Direct Store Link */}
+                    <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3 shrink-0">
+                      <div className="text-left sm:text-right font-mono-num">
+                        <div className="flex items-baseline gap-1.5">
+                          <span className={`font-black ${isLowest ? 'text-emerald-400 text-sm' : 'text-zinc-100 text-xs sm:text-sm'}`}>
+                            ₹{item.price.toLocaleString('en-IN')}
                           </span>
-                        )}
-                      </div>
-                      {item.discountPercent ? (
-                        <div className="text-[10px] font-mono text-emerald-400 sm:text-right">
-                          {item.discountPercent}% OFF
+                          {item.mrp && item.mrp > item.price && (
+                            <span className="text-[10px] text-zinc-500 line-through">
+                              ₹{item.mrp.toLocaleString('en-IN')}
+                            </span>
+                          )}
                         </div>
-                      ) : null}
-                    </div>
+                        {item.discountPercent ? (
+                          <div className="text-[10px] font-mono text-emerald-400 sm:text-right">
+                            {item.discountPercent}% OFF
+                          </div>
+                        ) : null}
+                      </div>
 
-                    {/* Direct Buy Link with exact URL */}
-                    <a
-                      href={item.productUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title={`Open exact product on ${item.store}`}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-black uppercase tracking-wider transition-transform active:scale-95 cursor-pointer shadow-sm ${
-                        isLowest
-                          ? 'bg-emerald-500 hover:bg-emerald-400 text-black'
-                          : 'bg-[#2a2a2a] hover:bg-[#383838] text-white border border-[#383838]'
-                      }`}
-                    >
-                      <span>Buy on {item.store.split(' ')[0]}</span>
-                      <ArrowUpRight className="w-3 h-3 stroke-[2.5]" />
-                    </a>
-                  </div>
+                      {/* Track Price Button for this individual listing */}
+                      {onTogglePriceTrack && (
+                        <button
+                          type="button"
+                          onClick={() => onTogglePriceTrack(item)}
+                          title={isListingTracked && isListingTracked(item.storeId) ? `Price tracking enabled for ${item.store}` : `Track price on ${item.store}`}
+                          className={`flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs font-mono font-bold transition-all cursor-pointer border ${
+                            isListingTracked && isListingTracked(item.storeId)
+                              ? 'bg-amber-400 text-black border-amber-400 shadow-sm'
+                              : 'bg-[#181818] hover:bg-[#242424] text-zinc-300 hover:text-amber-400 border-[#303030]'
+                          }`}
+                        >
+                          {isListingTracked && isListingTracked(item.storeId) ? (
+                            <>
+                              <BellRing className="w-3 h-3 animate-pulse text-black" />
+                              <span className="hidden md:inline text-[10px] font-black uppercase">Tracked</span>
+                            </>
+                          ) : (
+                            <>
+                              <Bell className="w-3 h-3" />
+                              <span className="hidden md:inline text-[10px] uppercase">Track</span>
+                            </>
+                          )}
+                        </button>
+                      )}
+
+                      {/* Direct Buy Link with exact URL */}
+                      <a
+                        href={item.productUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={`Open exact product on ${item.store}`}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-black uppercase tracking-wider transition-transform active:scale-95 cursor-pointer shadow-sm ${
+                          isLowest
+                            ? 'bg-emerald-500 hover:bg-emerald-400 text-black'
+                            : 'bg-[#2a2a2a] hover:bg-[#383838] text-white border border-[#383838]'
+                        }`}
+                      >
+                        <span>Buy on {item.store.split(' ')[0]}</span>
+                        <ArrowUpRight className="w-3 h-3 stroke-[2.5]" />
+                      </a>
+                    </div>
                 </div>
               );
             })}

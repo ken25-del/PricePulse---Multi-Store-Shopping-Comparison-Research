@@ -1,6 +1,7 @@
 import React from 'react';
 import { ProductGroup, AppSettings } from '../types';
 import { translations } from '../lib/i18n';
+import { getRealProductImageFallback } from '../lib/imageUtils';
 import { X, Star, ArrowUpRight, Scale, Trash2, CheckCircle2, AlertTriangle, Sparkles, ShieldCheck } from 'lucide-react';
 
 interface SideBySideCompareModalProps {
@@ -89,7 +90,15 @@ export const SideBySideCompareModal: React.FC<SideBySideCompareModalProps> = ({
                       <X className="w-3 h-3" />
                     </button>
                     <div className="w-full h-44 rounded-lg overflow-hidden bg-[#141414] border border-[#282828]">
-                      <img src={p.primaryImage} alt={p.canonicalTitle} referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                      <img
+                        src={p.primaryImage}
+                        alt={p.canonicalTitle}
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = getRealProductImageFallback(p.canonicalTitle, p.category);
+                        }}
+                      />
                     </div>
                     <div className="font-bold text-xs line-clamp-2 text-white tracking-tight">
                       {p.canonicalTitle}

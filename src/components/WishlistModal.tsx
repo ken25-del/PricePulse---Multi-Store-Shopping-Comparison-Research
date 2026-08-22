@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { ProductGroup, AppSettings } from '../types';
 import { translations } from '../lib/i18n';
+import { getRealProductImageFallback } from '../lib/imageUtils';
 import { X, Heart, Trash2, ArrowUpRight, Download, Upload, Star, Clock, AlertCircle } from 'lucide-react';
 
 interface WishlistModalProps {
@@ -149,6 +150,9 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                       alt={item.canonicalTitle}
                       referrerPolicy="no-referrer"
                       className="w-16 h-16 rounded-md object-cover bg-[#1a1a1a] shrink-0 border border-[#2a2a2a]"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = getRealProductImageFallback(item.canonicalTitle, item.category);
+                      }}
                     />
                     <div className="min-w-0">
                       <h4

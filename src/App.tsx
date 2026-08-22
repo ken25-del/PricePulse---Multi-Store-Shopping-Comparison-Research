@@ -8,7 +8,9 @@ import {
   SearchIntent,
   SourceStatus,
   ResearchSummary,
-  UserPriority
+  UserPriority,
+  TrackedPriceItem,
+  NormalizedProduct
 } from './types';
 import {
   getSettings,
@@ -22,7 +24,14 @@ import {
   getCustomSources,
   addCustomSource,
   removeCustomSource,
-  clearAllLocalData
+  clearAllLocalData,
+  getTrackedPrices,
+  trackProductPrice,
+  removeTrackedPrice,
+  clearTrackedPrices,
+  checkPriceDropsOnAppLoad,
+  dismissPriceDropAlert,
+  updateTrackedPriceTarget
 } from './lib/storage';
 import { translations } from './lib/i18n';
 
@@ -36,6 +45,7 @@ import { ProductCard } from './components/ProductCard';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { SideBySideCompareModal } from './components/SideBySideCompareModal';
 import { WishlistModal } from './components/WishlistModal';
+import { PriceWatchModal } from './components/PriceWatchModal';
 import { SettingsModal } from './components/SettingsModal';
 import { SourceSelectorModal } from './components/SourceSelectorModal';
 import { AddSourceModal } from './components/AddSourceModal';
@@ -54,7 +64,11 @@ import {
   WifiOff,
   AlertCircle,
   PackageSearch,
-  Scale
+  Scale,
+  Bell,
+  BellRing,
+  TrendingDown,
+  X
 } from 'lucide-react';
 
 const INITIAL_FILTERS: FilterState = {
@@ -101,10 +115,16 @@ export default function App() {
   const [compareProductIds, setCompareProductIds] = useState<string[]>([]);
   const [recentSearches, setRecentSearches] = useState<string[]>(getRecentSearches());
 
+  // Price Watch & Drop Alerts State
+  const [trackedPrices, setTrackedPrices] = useState<TrackedPriceItem[]>(getTrackedPrices());
+  const [priceDropAlerts, setPriceDropAlerts] = useState<TrackedPriceItem[]>([]);
+  const [showPriceDropBanner, setShowPriceDropBanner] = useState(false);
+
   // Modals
   const [selectedProductForModal, setSelectedProductForModal] = useState<ProductGroup | null>(null);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isCompareOpen, setIsCompareOpen] = useState(false);
+  const [isPriceWatchOpen, setIsPriceWatchOpen] = useState(false);
   const [isQuickDecisionOpen, setIsQuickDecisionOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isSourceSelectorOpen, setIsSourceSelectorOpen] = useState(false);
@@ -118,6 +138,20 @@ export default function App() {
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const t = translations[settings.language];
+
+  // Price Drop Check on App Load
+  useEffect(() => {
+    try {
+      const { allTracked, droppedAlerts } = checkPriceDropsOnAppLoad();
+      setTrackedPrices(allTracked);
+      if (droppedAlerts && droppedAlerts.length > 0) {
+        setPriceDropAlerts(droppedAlerts);
+        setShowPriceDropBanner(true);
+      }
+    } catch (err) {
+      console.error('Error checking price drops on app load:', err);
+    }
+  }, []);
 
   // Fetch initial sources from API
   useEffect(() => {
@@ -285,6 +319,60 @@ export default function App() {
     setWishlist(getWishlist());
   };
 
+  // Price Tracking handlers
+  const handleTogglePriceTrack = (product: ProductGroup, listing?: NormalizedProduct) => {
+    const targetListing = listing || product.listings.find(l => l.price === product.minPrice) || product.listings[0];
+    
+    // Check if this specific product/store listing is already tracked
+    const existingIndex = trackedPrices.findIndex(
+      item => item.productId === product.id && (targetListing ? item.storeId === targetListing.storeId : true)
+    );
+
+    if (existingIndex >= 0) {
+      // Remove from price watch
+      const itemToRemove = trackedPrices[existingIndex];
+      removeTrackedPrice(itemToRemove.id);
+      setTrackedPrices(getTrackedPrices());
+      setPriceDropAlerts(prev => prev.filter(a => a.id !== itemToRemove.id));
+    } else {
+      // Add to price watch
+      trackProductPrice(product, targetListing);
+      setTrackedPrices(getTrackedPrices());
+    }
+  };
+
+  const isGroupPriceTracked = (groupId: string): boolean => {
+    return trackedPrices.some(item => item.productId === groupId);
+  };
+
+  const isListingTracked = (storeId: string): boolean => {
+    return trackedPrices.some(item => item.storeId === storeId);
+  };
+
+  const handleRemoveTrackedPrice = (id: string) => {
+    removeTrackedPrice(id);
+    setTrackedPrices(getTrackedPrices());
+    setPriceDropAlerts(prev => prev.filter(a => a.id !== id));
+  };
+
+  const handleDismissPriceDropAlert = (id: string) => {
+    dismissPriceDropAlert(id);
+    setTrackedPrices(getTrackedPrices());
+    setPriceDropAlerts(prev => prev.filter(a => a.id !== id));
+  };
+
+  const handleUpdateTargetPrice = (id: string, targetPrice?: number) => {
+    updateTrackedPriceTarget(id, targetPrice);
+    setTrackedPrices(getTrackedPrices());
+  };
+
+  const handleClearAllTrackedPrices = () => {
+    clearTrackedPrices();
+    setTrackedPrices([]);
+    setPriceDropAlerts([]);
+    setShowPriceDropBanner(false);
+  };
+
   // Compare Tray handlers
   const handleToggleCompare = (productId: string) => {
     if (compareProductIds.includes(productId)) {
@@ -449,8 +537,11 @@ export default function App() {
         settings={settings}
         wishlistCount={wishlist.length}
         compareCount={compareProductIds.length}
+        priceWatchCount={trackedPrices.length}
+        priceDropAlertCount={priceDropAlerts.length}
         onOpenWishlist={() => setIsWishlistOpen(true)}
         onOpenCompare={() => setIsCompareOpen(true)}
+        onOpenPriceWatch={() => setIsPriceWatchOpen(true)}
         onOpenSettings={() => setIsSettingsOpen(true)}
         onToggleTheme={handleToggleTheme}
         onToggleLanguage={handleToggleLanguage}
@@ -465,6 +556,66 @@ export default function App() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        {/* Price Drop Alert Notification Banner (On App Load) */}
+        {showPriceDropBanner && priceDropAlerts.length > 0 && (
+          <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-amber-950/70 via-black to-[#1a140d] border-2 border-amber-500/70 shadow-xl font-mono text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 rounded-lg bg-amber-400 text-black shrink-0 mt-0.5 shadow-md">
+                <BellRing className="w-5 h-5 animate-bounce" />
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2 py-0.5 rounded-sm bg-amber-400 text-black text-[10px] font-black uppercase tracking-wider">
+                    PRICE DROP DETECTED!
+                  </span>
+                  <span className="text-xs font-bold text-amber-200">
+                    {priceDropAlerts.length} item{priceDropAlerts.length > 1 ? 's' : ''} in your Price Watch {priceDropAlerts.length > 1 ? 'have' : 'has'} dropped in price!
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2 text-xs text-zinc-300 font-sans">
+                  {priceDropAlerts.slice(0, 2).map((alert) => (
+                    <span key={alert.id} className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-black/60 border border-amber-500/30 text-amber-300">
+                      <TrendingDown className="w-3.5 h-3.5 text-emerald-400" />
+                      <strong className="text-white truncate max-w-[160px] sm:max-w-[220px]">{alert.canonicalTitle}</strong>
+                      <span className="text-emerald-400 font-mono font-bold font-mono-num">
+                        ₹{alert.currentPrice.toLocaleString('en-IN')}
+                      </span>
+                      {alert.priceDropPercent && (
+                        <span className="text-[10px] px-1 bg-emerald-950 text-emerald-300 border border-emerald-800 rounded-xs">
+                          -{alert.priceDropPercent}%
+                        </span>
+                      )}
+                    </span>
+                  ))}
+                  {priceDropAlerts.length > 2 && (
+                    <span className="text-xs text-zinc-400 self-center">
+                      +{priceDropAlerts.length - 2} more
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
+              <button
+                type="button"
+                onClick={() => setIsPriceWatchOpen(true)}
+                className="px-3.5 py-1.5 rounded-md bg-amber-400 hover:bg-amber-300 text-black font-black text-xs uppercase tracking-wider transition-transform active:scale-95 cursor-pointer shadow-md"
+              >
+                VIEW PRICE WATCH ({priceDropAlerts.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowPriceDropBanner(false)}
+                className="p-1.5 rounded-md text-zinc-400 hover:text-white bg-black/40 hover:bg-black border border-white/10 cursor-pointer"
+                title="Dismiss banner"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Hero Search Section */}
         <HeroSearch
           settings={settings}
@@ -640,8 +791,11 @@ export default function App() {
                         language={settings.language}
                         isWishlisted={wishlist.some(w => w.id === group.id)}
                         isSelectedForCompare={compareProductIds.includes(group.id)}
+                        isPriceTracked={isGroupPriceTracked(group.id)}
+                        isListingTracked={isListingTracked}
                         onToggleWishlist={() => handleToggleWishlist(group)}
                         onToggleCompare={() => handleToggleCompare(group.id)}
+                        onTogglePriceTrack={(listing) => handleTogglePriceTrack(group, listing)}
                         onViewDetails={() => setSelectedProductForModal(group)}
                       />
                     ))}
@@ -670,8 +824,11 @@ export default function App() {
                         language={settings.language}
                         isWishlisted={wishlist.some(w => w.id === group.id)}
                         isSelectedForCompare={compareProductIds.includes(group.id)}
+                        isPriceTracked={isGroupPriceTracked(group.id)}
+                        isListingTracked={isListingTracked}
                         onToggleWishlist={() => handleToggleWishlist(group)}
                         onToggleCompare={() => handleToggleCompare(group.id)}
+                        onTogglePriceTrack={(listing) => handleTogglePriceTrack(group, listing)}
                         onViewDetails={() => setSelectedProductForModal(group)}
                       />
                     ))}
@@ -802,9 +959,25 @@ export default function App() {
           settings={settings}
           isWishlisted={wishlist.some(w => w.id === selectedProductForModal.id)}
           isSelectedForCompare={compareProductIds.includes(selectedProductForModal.id)}
+          isPriceTracked={isGroupPriceTracked(selectedProductForModal.id)}
+          isListingTracked={isListingTracked}
           onToggleWishlist={() => handleToggleWishlist(selectedProductForModal)}
           onToggleCompare={() => handleToggleCompare(selectedProductForModal.id)}
+          onTogglePriceTrack={(listing) => handleTogglePriceTrack(selectedProductForModal, listing)}
           onClose={() => setSelectedProductForModal(null)}
+        />
+      )}
+
+      {/* Price Watch Modal */}
+      {isPriceWatchOpen && (
+        <PriceWatchModal
+          items={trackedPrices}
+          settings={settings}
+          onRemoveItem={handleRemoveTrackedPrice}
+          onDismissAlert={handleDismissPriceDropAlert}
+          onUpdateTargetPrice={handleUpdateTargetPrice}
+          onClearAll={handleClearAllTrackedPrices}
+          onClose={() => setIsPriceWatchOpen(false)}
         />
       )}
 
